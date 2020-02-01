@@ -16,40 +16,47 @@ from pygame.locals import *
 
 #############################    FONCTIONS    ############################
 
-def changer_num(): #commande pour ecrire un chiffre
-    # cliquée avant de mettre un numéro, si la val est tjs -1 alors c'est pas le cas
+def changer_num(): #commande pour ecrire un chiffre cliquée
 
     if clickable_area_G1.collidepoint(event.pos):
-        pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                                                    cot))
-        screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                         cot))
-        grille[x][y] = 1
-        print("1 clické")
+        if (grille[x][y] == 1): #Si le chiffre clique est deja sur la case alors efface la case
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 0  # remet la case à 0 dans la matrice
+        else:
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 1
+            print("1 clické")
     if clickable_area_G2.collidepoint(event.pos):
-        pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                                                    cot))
-        screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                         cot))
-        grille[x][y] = 2
-        print("2 clické")
+        if (grille[x][y] == 2): #Si le chiffre clique est deja sur la case alors efface la case
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 0  # remet la case à 0 dans la matrice
+        else:
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 2
+            print("2 clické")
     if clickable_area_G3.collidepoint(event.pos):
-        pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                                                    cot))
-        screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                         cot))
-        grille[x][y] = 3
-        print("3 clické")
+        if (grille[x][y] == 3): #Si le chiffre clique est deja sur la case alors efface la case
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 0 #remet la case à 0 dans la matrice
+        else:
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 3
+            print("3 clické")
     if clickable_area_G4.collidepoint(event.pos):
-        pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                                                    cot))
-        screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot,
-                         cot))
-        grille[x][y] = 4
-        print("4 clické")
+        if (grille[x][y] == 4): #Si le chiffre clique est deja sur la case alors efface la case
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 0  # remet la case à 0 dans la matrice
+        else:
+            pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            grille[x][y] = 4
+            print("4 clické")
 
 
-def click_sur_grille(grille):  # prend une grille en parametre (tableau n*n)
+def click_sur_grille(grille):  #Sert a avoir les coordonnees du click sur la grille
     if pygame.mouse.get_pressed()[0]:  # renvoie 1 si le le click gauche est activé
         click = pygame.mouse.get_pos()  # on stock les coordonées du click
         if (screen.get_at(click) == color):  # ne fait quelque chose que si l'on a cliqué sur du blanc
