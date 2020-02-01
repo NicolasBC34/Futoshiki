@@ -59,15 +59,26 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
 def click_sur_grille(grille):  #Sert a avoir les coordonnees du click sur la grille
     if pygame.mouse.get_pressed()[0]:  # renvoie 1 si le le click gauche est activé
         click = pygame.mouse.get_pos()  # on stock les coordonées du click
-        if (screen.get_at(click) == color):  # ne fait quelque chose que si l'on a cliqué sur du blanc
+        if (screen.get_at(click) == (color or colorclick)):  # ne fait quelque chose que si l'on a cliqué sur du blanc
             global x
             global y
             x = math.floor((
                 (click[1]/ (cot + mar))-2))  # les coordonées sont inversées quand on passe de la grille a l'interface
             y = math.floor(((click[0]/ (cot + mar))-4))
+            change_couleur_case_selec()
 
-            pygame.draw.rect(screen, colorclick, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot,cot))
-            # change de couleur après click ###### A CHANGER POUR QUE CA SOIT QUE PENDANT LE CLICK################
+def change_couleur_case_selec():
+    if event.type == MOUSEBUTTONDOWN:  # a toi de voir si tu veux ne gérer que des clics particuliers
+        for a in range(difficulte):  # Remet toutes les cases vide en blanc
+            for b in range(difficulte):
+                if grille[a][b] == 0:
+                    pygame.draw.rect(screen, color, pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) +
+                                                                200, cot, cot))
+        if grille[x][y] == 0:
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            # change de couleur après click
+
 
 #############################    VARIABLES    ############################
 
