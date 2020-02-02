@@ -121,10 +121,15 @@ def verifie_grille_finie():
     grille_finie = retourne_grille_finie()
     if (grille == grille_finie):
         gagner()
+        return True
+    else:
+        return False
 
 def gagner():
     image_gagner = pygame.image.load("assets/gagner.png").convert_alpha()
-    screen.blit(image_gagner, (290, 210))
+    screen.blit(image_gagner, (190, 150))
+    gagner = True
+    return gagner
 
 
 def click_sur_grille(grille):  #Sert a avoir les coordonnees du click sur la grille
@@ -183,13 +188,13 @@ G3 = pygame.image.load("assets/G3.png").convert_alpha()
 G4 = pygame.image.load("assets/G4.png").convert_alpha()
 
 clickable_area_G1 = pygame.Rect((320, 575), (100, 100))  #Zone cliquable des numéros (comme un bouton)
-rect_surf_G1 = pygame.Surface(clickable_area_G1.size)
+#rect_surf_G1 = pygame.Surface(clickable_area_G1.size)
 clickable_area_G2 = pygame.Rect((445, 575), (100, 100))
-rect_surf_G2 = pygame.Surface(clickable_area_G2.size)
+#rect_surf_G2 = pygame.Surface(clickable_area_G2.size)
 clickable_area_G3 = pygame.Rect((570, 575), (100, 100))
-rect_surf_G3 = pygame.Surface(clickable_area_G3.size)
+#rect_surf_G3 = pygame.Surface(clickable_area_G3.size)
 clickable_area_G4 = pygame.Rect((695, 575), (100, 100))
-rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+#rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
 
 P1 = pygame.image.load("assets/P1.png").convert_alpha()  #Lecture des petits numéros qui vont sur la grille
 P2 = pygame.image.load("assets/P2.png").convert_alpha()
@@ -224,12 +229,12 @@ while running: #Tant que la fentetre est en cours
         if event.type == pygame.QUIT:
             running = False
         if event.type == MOUSEBUTTONUP:  # quand je relache le bouton
-            if event.button == 1 and x != -1 and y != -1 :  # 1= clique gauche et vérifie qu'une case est été précedement
+            if ((event.button == 1) and (x != -1) and (y != -1) and (verifie_grille_finie() == False)):
+                # 1= clique gauche et vérifie qu'une case est été précedement et que la grille n'est pas deja finie
                 changer_num() #Appelle fonction ppour changer les numéros
 
-
-
-    click_sur_grille(grille)
+    if (verifie_grille_finie() == False):
+        click_sur_grille(grille)
 
 
     pygame.display.flip()
