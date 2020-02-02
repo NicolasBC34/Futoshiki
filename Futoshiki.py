@@ -80,6 +80,7 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             grille[x][y] = 1
+            verifie_grille_finie()
             print("1 clické")
     if clickable_area_G2.collidepoint(event.pos):
         if (grille[x][y] == 2): #Si le chiffre clique est deja sur la case alors efface la case
@@ -89,6 +90,7 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             grille[x][y] = 2
+            verifie_grille_finie()
             print("2 clické")
     if clickable_area_G3.collidepoint(event.pos):
         if (grille[x][y] == 3): #Si le chiffre clique est deja sur la case alors efface la case
@@ -98,6 +100,7 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             grille[x][y] = 3
+            verifie_grille_finie()
             print("3 clické")
     if clickable_area_G4.collidepoint(event.pos):
         if (grille[x][y] == 4): #Si le chiffre clique est deja sur la case alors efface la case
@@ -107,7 +110,21 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, color, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
             grille[x][y] = 4
+            verifie_grille_finie()
             print("4 clické")
+
+def retourne_grille_finie():
+    grille_finie = [[2, 1, 3, 4],[3, 4, 2, 1],[1, 2, 4, 3],[4, 3, 1, 2]]
+    return grille_finie
+
+def verifie_grille_finie():
+    grille_finie = retourne_grille_finie()
+    if (grille == grille_finie):
+        gagner()
+
+def gagner():
+    image_gagner = pygame.image.load("assets/gagner.png").convert_alpha()
+    screen.blit(image_gagner, (290, 210))
 
 
 def click_sur_grille(grille):  #Sert a avoir les coordonnees du click sur la grille
@@ -192,15 +209,6 @@ initial=True #pour initialiser qu'une fois la grille
 
 while running: #Tant que la fentetre est en cours
 
-
-
-    for event in pygame.event.get(): #Pour chaque evenement
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == MOUSEBUTTONUP:  # quand je relache le bouton
-            if event.button == 1 and x != -1 and y != -1 :  # 1= clique gauche et vérifie qu'une case est été précedement
-                changer_num() #Appelle fonction ppour changer les numéros
-
     if initial:
         screen.blit(imagetitre, (290, 20))  # Affichage du titre Futoshiki
 
@@ -210,6 +218,16 @@ while running: #Tant que la fentetre est en cours
         screen.blit(G4, (695, 575))
         grille = installe_grille()
         initial=False
+
+
+    for event in pygame.event.get(): #Pour chaque evenement
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == MOUSEBUTTONUP:  # quand je relache le bouton
+            if event.button == 1 and x != -1 and y != -1 :  # 1= clique gauche et vérifie qu'une case est été précedement
+                changer_num() #Appelle fonction ppour changer les numéros
+
+
 
     click_sur_grille(grille)
 
