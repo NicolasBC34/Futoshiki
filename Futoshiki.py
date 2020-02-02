@@ -16,6 +16,60 @@ from pygame.locals import *
 
 #############################    FONCTIONS    ############################
 
+def installe_grille():
+    grille_base = [0, 0, 4, 0],[1, 0, 0, 0],[0, 20, 3, 4],[0, 0, 10, 0] #Les unités sont les flèches et les dizaines
+    #sont les chiffres de base non modifianble
+    fleche_gauche = pygame.image.load("assets/fleche_gauche.png").convert_alpha()  # Lecture des flèches, gauche = 1
+    fleche_haut = pygame.image.load("assets/fleche_haut.png").convert_alpha()  # haut = 2
+    fleche_droit = pygame.image.load("assets/fleche_droit.png").convert_alpha()  # droite = 3
+    fleche_bas = pygame.image.load("assets/fleche_bas.png").convert_alpha()  #bas = 4
+
+    for a in range(difficulte):  #Lecture de la grille de base
+        for b in range(difficulte):
+            grille[a][b] = 0  #Met les chiffres de base dans la grille
+            if (grille_base[a][b] != 0):
+                if ((grille_base[a][b] % 10) == 1):  #Placement des flèches
+                    screen.blit(fleche_gauche, (b * (cot + mar) + 450, a * (cot + mar) + 200))
+
+                elif ((grille_base[a][b] % 10) == 2):
+                    screen.blit(fleche_haut, (b * (cot + mar) + 390, a * (cot + mar) + 260))
+
+                elif ((grille_base[a][b] % 10) == 3):
+                    screen.blit(fleche_droit, (b * (cot + mar) + 450, a * (cot + mar) + 200))
+
+                elif ((grille_base[a][b] % 10) == 4):
+                    screen.blit(fleche_bas, (b * (cot + mar) + 390, a * (cot + mar) + 260))
+
+                if (grille_base[a][b] > 39): #Placement des chiffres de base
+                    pygame.draw.rect(screen, colorbase,
+                                     pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    screen.blit(P4, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    grille[a][b] = 4
+
+                elif (grille_base[a][b] > 29):
+                    pygame.draw.rect(screen, colorbase,
+                                     pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    screen.blit(P3, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    grille[a][b] = 3
+
+                elif (grille_base[a][b] > 19):
+                    pygame.draw.rect(screen, colorbase,
+                                     pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    screen.blit(P2, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    grille[a][b] = 2
+
+                elif (grille_base[a][b] > 9):
+                    pygame.draw.rect(screen, colorbase,
+                                     pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    screen.blit(P1, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                    grille[a][b] = 1
+
+    return grille #Renvoie la grille avec les chiffres de base
+
+
+
+
+
 def changer_num(): #commande pour ecrire un chiffre cliquée
 
     if clickable_area_G1.collidepoint(event.pos):
@@ -59,7 +113,7 @@ def changer_num(): #commande pour ecrire un chiffre cliquée
 def click_sur_grille(grille):  #Sert a avoir les coordonnees du click sur la grille
     if pygame.mouse.get_pressed()[0]:  # renvoie 1 si le le click gauche est activé
         click = pygame.mouse.get_pos()  # on stock les coordonées du click
-        if (screen.get_at(click) == (color or colorclick)):  # ne fait quelque chose que si l'on a cliqué sur du blanc
+        if (screen.get_at(click) == (color)):  # ne fait quelque chose que si l'on a cliqué sur du blanc
             global x
             global y
             x = math.floor((
@@ -100,6 +154,7 @@ running = True #Vérifie si la fenetre doit rester ouverte
 screen.fill((0, 105, 102))  # met le fond en vert
 color = (255, 255, 255)  # couleur que l'on utilise pour les rectangles
 colorclick = (255, 255, 35) # couleur quand on click sur un rectangle
+colorbase = (170, 170, 170) # couleur des chiffres de base non modifiable
 imagetitre = pygame.image.load("assets/titreFutoshiki.png").convert_alpha() #Lecture du titre Futoshiki
 difficulte = 4 #taille de grille
 
@@ -132,17 +187,12 @@ for x in range(difficulte):
 
 x = -1 #coordonneé de la grille x de la dernière case cliquée
 y= -1  #coordonneé de la grille y de la dernière case cliquée
-
-#############################    MAIN    ############################
+initial=True #pour initialiser qu'une fois la grille
+#############################    FENETRE    ############################
 
 while running: #Tant que la fentetre est en cours
 
-    screen.blit(imagetitre, (290, 20))  #Affichage du titre Futoshiki
 
-    screen.blit(G1, (320, 575))  #Affichage des grands numéros cliquable
-    screen.blit(G2, (445, 575))
-    screen.blit(G3, (570, 575))
-    screen.blit(G4, (695, 575))
 
     for event in pygame.event.get(): #Pour chaque evenement
         if event.type == pygame.QUIT:
@@ -151,7 +201,18 @@ while running: #Tant que la fentetre est en cours
             if event.button == 1 and x != -1 and y != -1 :  # 1= clique gauche et vérifie qu'une case est été précedement
                 changer_num() #Appelle fonction ppour changer les numéros
 
+    if initial:
+        screen.blit(imagetitre, (290, 20))  # Affichage du titre Futoshiki
+
+        screen.blit(G1, (320, 575))  # Affichage des grands numéros cliquable
+        screen.blit(G2, (445, 575))
+        screen.blit(G3, (570, 575))
+        screen.blit(G4, (695, 575))
+        grille = installe_grille()
+        initial=False
+
     click_sur_grille(grille)
+
 
     pygame.display.flip()
 
