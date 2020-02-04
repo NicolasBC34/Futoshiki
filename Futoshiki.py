@@ -223,7 +223,7 @@ for x in range(difficulte):
 
 clock = pygame.time.Clock()
 X = -1 #coordonneé de la grille x de la dernière case cliquée
-Y= -1  #coordonneé de la grille y de la dernière case cliquée
+Y = -1  #coordonneé de la grille y de la dernière case cliquée
 initial = True
 clicked = True
 #############################    MAIN    ############################
@@ -247,7 +247,8 @@ while running:  # Tant que la fentetre est en cours
         if (click_sur_grille(grille, grille_rectangles)):
             X = click_sur_grille(grille, grille_rectangles)[0]
             Y = click_sur_grille(grille, grille_rectangles)[1]
-        changer_num(X, Y)
+        if (X != -1):
+            changer_num(X, Y)
 
     if (event.type == MOUSEBUTTONUP):  # besoin de cette condition pour triter les clicks 1 a 1
         clicked = True
