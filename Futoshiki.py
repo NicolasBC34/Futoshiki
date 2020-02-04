@@ -89,6 +89,15 @@ def change_couleur_case_selec(x, y):
     grille_base = retourne_grille_base()
     if event.type == MOUSEBUTTONDOWN:  # a toi de voir si tu veux ne gérer que des clics particuliers
         pygame.draw.rect(screen, colorclick, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+        if (grille[x][y] != 0):  # Réécris le chiffre par dessus la case selectionnée
+            if (grille[x][y] == 1):
+                screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 2):
+                screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 3):
+                screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 4):
+                screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
         for a in range(difficulte):  # Remet toutes les cases vide en blanc
             for b in range(difficulte):
                 if (((a != x) or (b != y)) and (grille_base[a][b] < 9)): #Vérifie que la case est ni selectionnée
@@ -117,7 +126,6 @@ def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             screen.blit(P1, (Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             grille[X][Y] = 1
-            print("1 clické")
     if clickable_area_G2.collidepoint(event.pos):
         if (grille[X][Y] == 2):  # Si le chiffre clique est deja sur la case alors efface la case
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
@@ -126,7 +134,6 @@ def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             screen.blit(P2, (Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             grille[X][Y] = 2
-            print("2 clické")
     if clickable_area_G3.collidepoint(event.pos):
         if (grille[X][Y] == 3):  # Si le chiffre clique est deja sur la case alors efface la case
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
@@ -135,7 +142,6 @@ def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             screen.blit(P3, (Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             grille[X][Y] = 3
-            print("3 clické")
     if clickable_area_G4.collidepoint(event.pos):
         if (grille[X][Y] == 4):  # Si le chiffre clique est deja sur la case alors efface la case
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
@@ -144,12 +150,10 @@ def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             screen.blit(P4, (Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             grille[X][Y] = 4
-            print("4 clické")
 
 
 def click_sur_grille(grille, grille_rectangles):  # Sert a avoir les coordonnees du click sur la grille
     grille_base = retourne_grille_base()
-    print(grille_base)
     for i in range(difficulte):  # on cherche sur quel rectangle on a cliqué
         for j in range(difficulte):
             if (grille_rectangles[i][j].collidepoint(
@@ -160,7 +164,7 @@ def click_sur_grille(grille, grille_rectangles):  # Sert a avoir les coordonnees
                 change_couleur_case_selec(x, y)
                 co = (x, y)  # renvoie les coordonées a la place de les passer en variable globale
                 return co
-    return 0  # change de couleur après click ###### A CHANGER POUR QUE CA SOIT QUE PENDANT LE CLICK################
+    return 0
 
 
 #############################    VARIABLES    ############################
