@@ -14,8 +14,8 @@
 import pygame, os, math
 from pygame.locals import *
 
-
 #############################    FONCTIONS    ############################
+
 def retourne_grille_base():
     grille_base = [0, 0, 4, 0], [1, 0, 0, 0], [0, 20, 3, 4], [0, 0, 10,
                                                               0]  # Les unités sont les flèches et les dizaines
@@ -84,20 +84,59 @@ def gagner():
     gagner = True
     return gagner
 
+def verifie_2_identiques():
+    grille_base = retourne_grille_base()
+    for a in range(difficulte):
+        for b in range(difficulte):
+            for c in range(difficulte):
+                if ((b != c) and ((grille[a][b] != 0) and (grille[b][a] != 0))):
+                    if (grille[a][b] == grille[a][c]):
+                        if (grille_base[a][b]<10): #Verifie que ce n'est pas un chiffre non modifiable
+                            print("Erreur",a,b,"est en double")
+                            pygame.draw.rect(screen, colorerreur, pygame.Rect(b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                        if (grille_base[a][c] < 10): #Verifie que ce n'est pas un chiffre non modifiable
+                            print("Erreur", a, c, "est en double")
+                            pygame.draw.rect(screen, colorerreur, pygame.Rect(c * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                        # Réécris le chiffre par dessus la case selectionnée
+                        if (grille[a][b] == 1):
+                            screen.blit(P1, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                            screen.blit(P1, (c * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                        if (grille[a][b] == 2):
+                            screen.blit(P2, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                            screen.blit(P2, (c * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                        if (grille[a][b] == 3):
+                            screen.blit(P3, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                            screen.blit(P3, (c * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                        if (grille[a][b] == 4):
+                            screen.blit(P4, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+                            screen.blit(P4, (c * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+
+                    if (grille[b][a] == grille[c][a]):
+                        if (grille_base[b][a] < 10): #Verifie que ce n'est pas un chiffre non modifiable
+                            print("Erreur", b, a, "est en double")
+                            pygame.draw.rect(screen, colorerreur,
+                                         pygame.Rect(a * (cot + mar) + 390, b * (cot + mar) + 200, cot, cot))
+                        if (grille_base[c][a] < 10): #Verifie que ce n'est pas un chiffre non modifiable
+                            print("Erreur", c, a, "est en double")
+                            pygame.draw.rect(screen, colorerreur,
+                                         pygame.Rect(a * (cot + mar) + 390, c * (cot + mar) + 200, cot, cot))
+                         # Réécris le chiffre par dessus la case selectionnée
+                        if (grille[b][a] == 1):
+                            screen.blit(P1, (a * (cot + mar) + 390, b * (cot + mar) + 200, cot, cot))
+                            screen.blit(P1, (a * (cot + mar) + 390, c * (cot + mar) + 200, cot, cot))
+                        if (grille[b][a] == 2):
+                            screen.blit(P2, (a * (cot + mar) + 390, b * (cot + mar) + 200, cot, cot))
+                            screen.blit(P2, (a * (cot + mar) + 390, c * (cot + mar) + 200, cot, cot))
+                        if (grille[b][a] == 3):
+                            screen.blit(P3, (a * (cot + mar) + 390, b * (cot + mar) + 200, cot, cot))
+                            screen.blit(P3, (a * (cot + mar) + 390, c * (cot + mar) + 200, cot, cot))
+                        if (grille[b][a] == 4):
+                            screen.blit(P4, (a * (cot + mar) + 390, b * (cot + mar) + 200, cot, cot))
+                            screen.blit(P4, (a * (cot + mar) + 390, c * (cot + mar) + 200, cot, cot))
 
 def change_couleur_case_selec(x, y):
     grille_base = retourne_grille_base()
     if event.type == MOUSEBUTTONDOWN:  # a toi de voir si tu veux ne gérer que des clics particuliers
-        pygame.draw.rect(screen, colorclick, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
-        if (grille[x][y] != 0):  # Réécris le chiffre par dessus la case selectionnée
-            if (grille[x][y] == 1):
-                screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
-            if (grille[x][y] == 2):
-                screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
-            if (grille[x][y] == 3):
-                screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
-            if (grille[x][y] == 4):
-                screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
         for a in range(difficulte):  # Remet toutes les cases vide en blanc
             for b in range(difficulte):
                 if (((a != x) or (b != y)) and (grille_base[a][b] < 9)): #Vérifie que la case est ni selectionnée
@@ -113,6 +152,18 @@ def change_couleur_case_selec(x, y):
                             screen.blit(P3, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
                         if (grille[a][b] == 4):
                             screen.blit(P4, (b * (cot + mar) + 390, a * (cot + mar) + 200, cot, cot))
+        verifie_2_identiques()
+        pygame.draw.rect(screen, colorclick, pygame.Rect(y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+        if (grille[x][y] != 0):  # Réécris le chiffre par dessus la case selectionnée
+            if (grille[x][y] == 1):
+                screen.blit(P1, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 2):
+                screen.blit(P2, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 3):
+                screen.blit(P3, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+            if (grille[x][y] == 4):
+                screen.blit(P4, (y * (cot + mar) + 390, x * (cot + mar) + 200, cot, cot))
+
 
 
 
@@ -126,6 +177,7 @@ def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             screen.blit(P1, (Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
             grille[X][Y] = 1
+
     if clickable_area_G2.collidepoint(event.pos):
         if (grille[X][Y] == 2):  # Si le chiffre clique est deja sur la case alors efface la case
             pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + 390, X * (cot + mar) + 200, cot, cot))
@@ -190,11 +242,12 @@ pygame.display.set_icon(Icone)  # mettre l'icone
 running = True  # Vérifie si la fenetre doit rester ouverte
 screen.fill((0, 105, 102))  # met le fond en vert
 color = (255, 255, 255)  # couleur que l'on utilise pour les rectangles
-noir = (0, 0, 0)
+colorerreur = (255, 0, 0) #Couleur quand deux chiffres sont identiques sur la même ligne
 colorclick = (255, 255, 35)  # couleur quand on click sur un rectangle
 colorbase = (170, 170, 170)  # couleur des chiffres de base non modifiables
 imagetitre = pygame.image.load("assets/titreFutoshiki.png").convert_alpha()  # Lecture du titre Futoshiki
 difficulte = 4  # taille de grille
+
 
 G1 = pygame.image.load("assets/G1.png").convert_alpha()  # Lecture des grands numéros cliquable
 G2 = pygame.image.load("assets/G2.png").convert_alpha()
