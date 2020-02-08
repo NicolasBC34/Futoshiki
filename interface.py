@@ -1,60 +1,117 @@
-#! /usr/bin/python3
-import sys,random
-from tkinter import *
-import tkinter.font as tkFont
+    #!/usr/bin/python3
+
+    #############################################################################
+    #############################################################################
+    ###########################       FUTOSHIKI       ###########################
+    ########      FAIT PAR : Allan, Rayan, Nico, Alexandre et Mattéo      #######
+    ############################     Version 1.0     ############################
+    #############################################################################
+    #############################################################################
 
 
-grille=[[0]*4 for i in range(4)] #grille de 4*4 initialisée a 0, sera composée d'entry
-grilleLi=[[0]*4 for i in range(4)] #copie de la grille, c'est une liste avec les valeurs de la grille
-fenetre=Tk()
-fenetre.title=("la glissade")
+    #############################    IMPORTATIONS    ############################
 
-myFont=tkFont.Font(size=20)
-#fenetre.geometry("800x500")
+import pygame, os, math
+from pygame.locals import *
+import sys
 
-def DejaPres(x,y,grille,Entry):                   #fonction qui vérifie si une cellule a un valeur déja présente en horizontale et verticale (=sudoku)
-    for i in range(4):
-        if(i!=x and grille[i][y]==int(Entry.get())):
-            Entry.configure({"background":"red","fg":"white"})
-            return 1
-    for j in range(4):
-        if(j!=y and grille[x][j]==int(Entry.get())):
-            Entry.configure({"background":"red","fg":"white"})
-            return 1
-    # si l'entier est au bon endroit, on reset la couleur de la case        
-    Entry.configure({"background":"white","fg":"black"})
-    return 0        
-    
 
-# Affichage de la grille
-for i in range(4):
-    for j in range(4):
-        grille[i][j]=Entry(fenetre,width=5,font=myFont,justify=CENTER)  # grille est la liste des entry(champs)
-        grille[i][j].grid(column=i,row=j)                               # interface de la grille
-        #grille[i][j].insert(1,random.randint(0,3))                      # test en complétant la grille en entier avec des entiers random entre 0 et 3
-        #grilleLi[i][j]=int(grille[i][j].get())                          # get sort la valeur d'une entrée en chaine
+    #############################    FONCTIONS    ############################
 
-print(grilleLi)
-def ChampInt(Entry):            #vérifie si l'entier dans le champs est entre 0 et 4,renvoie 1, efface le contenu sinon et renvoie 0
-    if not(int(Entry.get()) in range(4)):
-        Entry.delete(0,'end')
-        return 0
-    return 1
-        
+def definterface():
+    #############################    VARIABLES    ############################
 
-def contrl(liste,champs):        # fonction qui évalue la position des valeurs, colorie en rouge le champs si la valeur n'est 
-    for i in range(4):           # pas au bon endroit
-        for j in range(4):
-            if(ChampInt(champs[i][j])):
-                grilleLi[i][j]=int(grille[i][j].get())
-                DejaPres(i,j,liste,champs[i][j])
-            else:    
-                liste[i][j]=-1
-            
+    pygame.init()
+    WINDOW_SIZE = [1080, 720]
+    screen = pygame.display.set_mode(WINDOW_SIZE)
+    pygame.display.set_caption("Futoshiki")  # titre de la fenetre
 
-Button_ctrl=Button(master=fenetre,text="click stp",command=lambda:contrl(grilleLi,grille)) # il faut clicker entre chaque modification de valeurs pour évaluer si 
-Button_ctrl.grid(column=2,row=4)                                                           # la valeur est au bon endroit ou pas
+    Icone = pygame.image.load("assets/icone.jpg")  # lecture de l'icone
+    pygame.display.set_icon(Icone)  # mettre l'icone
+    running = True  # Vérifie si la fenetre doit rester ouverte
+    screen.fill((0, 105, 102))  # met le fond en vert
+    imagetitre = pygame.image.load("assets/titreFutoshiki.png").convert_alpha()  # Lecture du titre Futoshiki
 
-    
-    
-fenetre.mainloop()
+    X4 = pygame.image.load("assets/4x4.png").convert_alpha()  # Lecture des titres des boutons
+    X5 = pygame.image.load("assets/5x5.png").convert_alpha()
+    X6 = pygame.image.load("assets/6x6.png").convert_alpha()
+    X7 = pygame.image.load("assets/7x7.png").convert_alpha()
+    X8 = pygame.image.load("assets/8x8.png").convert_alpha()
+    X9 = pygame.image.load("assets/9x9.png").convert_alpha()
+    REG = pygame.image.load("assets/regles.png").convert_alpha()
+    QUIT = pygame.image.load("assets/quitter.png").convert_alpha()
+
+    clickable_area_X4 = pygame.Rect((229, 240), (200, 100))  # Zone cliquable des titres (comme un bouton)
+    # rect_surf_G1 = pygame.Surface(clickable_area_G1.size)
+    clickable_area_X5 = pygame.Rect((456, 240), (200, 100))
+    # rect_surf_G2 = pygame.Surface(clickable_area_G2.size)
+    clickable_area_X6 = pygame.Rect((684, 240), (200, 100))
+    # rect_surf_G3 = pygame.Surface(clickable_area_G3.size)
+    clickable_area_X7 = pygame.Rect((229, 385), (200, 100))
+    # rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+    clickable_area_X8 = pygame.Rect((456, 385), (200, 100))
+    # rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+    clickable_area_X9 = pygame.Rect((684, 385), (200, 100))
+    # rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+    clickable_area_REG = pygame.Rect((320, 500), (200, 100))
+    # rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+    clickable_area_QUIT = pygame.Rect((600, 500), (200, 100))
+    # rect_surf_G4 = pygame.Surface(clickable_area_G4.size)
+
+    initial = True
+    #############################    MAIN    ############################
+
+    while running:  # Tant que la fentetre est en cours
+
+        for event in pygame.event.get():  # Pour chaque evenement
+            if event.type == pygame.QUIT:
+                running = False
+
+            if initial:
+                screen.blit(imagetitre, (290, 50))  # Affichage du titre Futoshiki
+                screen.blit(X4, (228, 240))  # Affichage des boutons
+                screen.blit(X5, (456, 240))
+                screen.blit(X6, (683, 240))
+                screen.blit(X7, (228, 385))
+                screen.blit(X8, (456, 385))
+                screen.blit(X9, (683, 385))
+                screen.blit(REG, (320, 500))
+                screen.blit(QUIT, (600, 500))
+
+                initial = False
+            if (event.type == MOUSEBUTTONDOWN):
+                if clickable_area_X4.collidepoint(event.pos):
+                    from levels import levels
+                    levels(4)
+
+                if clickable_area_X5.collidepoint(event.pos):
+                    from levels import levels
+                    levels(5)
+
+                if clickable_area_X6.collidepoint(event.pos):
+                    from levels import levels
+                    levels(6)
+
+                if clickable_area_X7.collidepoint(event.pos):
+                    from levels import levels
+                    levels(7)
+
+                if clickable_area_X8.collidepoint(event.pos):
+                    from levels import levels
+                    levels(8)
+
+                if clickable_area_X9.collidepoint(event.pos):
+                    from levels import levels
+                    levels(9)
+
+                if clickable_area_REG.collidepoint(event.pos):
+                    jeu_REG()
+
+                if clickable_area_QUIT.collidepoint(event.pos):
+                    pygame.quit()
+                    sys.exit()
+
+            pygame.display.flip()
+
+
+definterface()
