@@ -1,6 +1,6 @@
--Choisir la bibliothèque qui ira le mieux
--Commencer une interface graphique sur genre paint
--Faire la grille 3x3 --->fait
 -Check les algos de retour sur traces
 -Struct de données --> tableau 2D
--
+-Faire le timer, commence quand la grille se lance fini quand la grille est réussi et faire une page qui sauvergarde les records
+-Rendre le code plus propre et plus commenter 
+-Faire une page pour creer une grille et la résoudre automatiquement 
+-Implementer tous les niveaux de 1 à 9 de toutes les tailles de grille
