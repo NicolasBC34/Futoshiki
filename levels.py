@@ -224,6 +224,16 @@ def levels(la_difficulte):
     niveaux_9x9 = pygame.image.load("assets/niveaux_9x9.png").convert_alpha()
 
 
+    pygame.draw.rect(screen, (0, 175, 170), (262, 190, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (490, 190, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (717, 190, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (262, 335, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (490, 335, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (717, 335, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (262, 480, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (490, 480, 100, 100))
+    pygame.draw.rect(screen, (0, 175, 170), (717, 480, 100, 100))
+
     clickable_area_G1 = pygame.Rect((262, 190), (100, 100))
     clickable_area_G2 = pygame.Rect((490, 190), (100, 100))
     clickable_area_G3 = pygame.Rect((717, 190), (100, 100))
