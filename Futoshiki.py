@@ -3,7 +3,7 @@
     #############################################################################
     #############################################################################
     ###########################       FUTOSHIKI       ###########################
-    ########      FAIT PAR : Allan, Rayan, Nico, Alexandre et Mattéo      #######
+    ########      FAIT PAR : Allan, Rayan, Nico, Alexandre et Matéo       #######
     ############################     Version 1.0     ############################
     #############################################################################
     #############################################################################
@@ -262,6 +262,55 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
                 if (grille[x][y] == 9):
                     screen.blit(P9, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
 
+
+    def changer_keynum(): #commande pour ecrire les chiffres au clavier
+        if event.key == K_KP1:
+            pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 1
+
+        if event.key == K_KP2:
+            pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 2
+
+        if event.key == K_KP3:
+            pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 3
+
+        if event.key == K_KP4:
+            pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 4  
+
+        if (difficulte >= 5):
+            if event.key == K_KP5:
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+
+        if (difficulte >= 6):
+            if event.key == K_KP6:
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+
+        if (difficulte >= 7):
+            if event.key == K_KP7:
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+
+        if (difficulte >= 8):
+            if event.key == K_KP8:
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+        if (difficulte >= 9):
+            if event.key == K_KP9:
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+
+        if (event.key == K_BACKSPACE or event.key == K_KP0) : #pour effacer un chiffre au clavier soir retour arrière soit 0 
+            pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 0
 
 
 
@@ -542,6 +591,9 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
             if clickable_area_retour.collidepoint(event.pos):
                 from levels import levels
                 levels(difficulte)
+
+        if (event.type == KEYDOWN and X!=-1):
+            changer_keynum()
 
         if (event.type == MOUSEBUTTONUP):  # besoin de cette condition pour triter les clicks 1 a 1
             clicked = True
