@@ -67,6 +67,31 @@ def solveur(grille):
 
 difficulte = 4
 grille_base = [0, 0, 2, 0], [0.5, 0, 0, 0], [0, 20, 1.5, 2], [0, 0, 10, 0]
-grille = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 2, 0, 0], [0, 0, 1, 0]]
+
+grille = [[0] * difficulte for i in range(difficulte)] #Fabrique la grille avec les numéros de base
+for a in range(difficulte):
+    for b in range(difficulte):
+        if (grille_base[a][b] != 0):
+            if (grille_base[a][b] > 89):
+                grille[a][b] = 9
+            elif (grille_base[a][b] > 79):
+                grille[a][b] = 8
+            elif (grille_base[a][b] > 69):
+                grille[a][b] = 7
+            elif (grille_base[a][b] > 59):
+                grille[a][b] = 6
+            elif (grille_base[a][b] > 49):
+                grille[a][b] = 5
+            elif (grille_base[a][b] > 39):
+                grille[a][b] = 4
+            elif (grille_base[a][b] > 29):
+                grille[a][b] = 3
+            elif (grille_base[a][b] > 19):
+                grille[a][b] = 2
+            elif (grille_base[a][b] > 9):
+                grille[a][b] = 1
+        else:
+            grille[a][b] = 0
+
 solveur(grille)
 grille_finie = grille
