@@ -1,4 +1,6 @@
 def cherche_case_vide(grille):
+    ligne = 0
+    col = 0
     resultat = False
     for i in range(difficulte):
         for j in range(difficulte):
@@ -50,15 +52,14 @@ def solveur(grille):
     i = 0
     j = 0
     if (cherche_case_vide(grille)[0] == False):
-        return True
+        return True, grille
     ligne = cherche_case_vide(grille)[1]
     col = cherche_case_vide(grille)[2]
     for val in range(1, difficulte+1):
         if (peut_etre_attribuer(grille_base, grille, ligne, col, val)):
             grille[ligne][col] = val
-            print(grille)
             if (solveur(grille)):
-                return True
+                return True, grille
             grille[ligne][col] = 0
 
     return False
@@ -93,5 +94,4 @@ for a in range(difficulte):
         else:
             grille[a][b] = 0
 
-solveur(grille)
-grille_finie = grille
+print(solveur(grille)[1])
