@@ -66,8 +66,8 @@ def solveur(grille):
 
 
 
-difficulte = 4
-grille_base = [0, 0, 2, 0], [0.5, 0, 0, 0], [0, 20, 1.5, 2], [0, 0, 10, 0]
+difficulte = 5
+grille_base = [2, 3, 0.5, 1, 0], [0, 0, 0, 0, 30], [0, 0, 0.5, 0 , 0], [0, 0, 1, 2, 1], [0, 0, 0, 0, 0]
 
 grille = [[0] * difficulte for i in range(difficulte)] #Fabrique la grille avec les numéros de base
 for a in range(difficulte):
@@ -94,4 +94,4 @@ for a in range(difficulte):
         else:
             grille[a][b] = 0
 
-print(solveur(grille)[1])
+print("La grille peut-elle être résolue ? Si oui, la voici :", solveur(grille))
