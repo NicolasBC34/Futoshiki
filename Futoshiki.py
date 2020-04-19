@@ -1,26 +1,29 @@
-#!/usr/bin/python3
+    #!/usr/bin/python3
 
-#############################################################################
-#############################################################################
-###########################       FUTOSHIKI       ###########################
-########      FAIT PAR : Allan, Rayan, Nico, Alexandre et Matéo       #######
-############################     Version 1.0     ############################
-#############################################################################
-#############################################################################
+    #############################################################################
+    #############################################################################
+    ###########################       FUTOSHIKI       ###########################
+    ########      FAIT PAR : Allan, Rayan, Nico, Alexandre et Mattéo      #######
+    ############################     Version 1.0     ############################
+    #############################################################################
+    #############################################################################
 
 
-#############################    IMPORTATIONS    ############################
+    #############################    IMPORTATIONS    ############################
 
-import pygame, os, math
+import pygame, os, math, json
 from pygame.locals import *
 
-
 def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
+
+
+
     #############################    FONCTIONS    ############################
 
     def retourne_grille_base():
         grille_base = la_grille_base
         return grille_base
+
 
     def installe_grille():
         grille = [[0] * difficulte for i in range(difficulte)]
@@ -31,6 +34,7 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
         # droite = 1.5, droite + haut = 3.5, droite + bas = 4
         # haut = 1
         # bas = 2
+
 
         # sont les chiffres de base non modifianble
         fleche_gauche = pygame.image.load("assets/fleche_gauche.png").convert_alpha()
@@ -47,89 +51,78 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
                 grille[a][b] = 0  # Met les chiffres de base dans la grille
                 if (grille_base[a][b] != 0):
-                    if (((grille_base[a][b] % 10) == 0.5) or ((grille_base[a][b] % 10) == 2.5) or (
-                            (grille_base[a][b] % 10) == 3)):  # Placement des flèches
+                    if (((grille_base[a][b] % 10) == 0.5) or ((grille_base[a][b] % 10) == 2.5) or ((grille_base[a][b] % 10) == 3)):  # Placement des flèches
                         screen.blit(fleche_gauche, (b * (cot + mar) + marge_gauche + cot, a * (cot + mar) + marge_haut))
 
-                    if (((grille_base[a][b] % 10) == 1) or ((grille_base[a][b] % 10) == 2.5) or (
-                            (grille_base[a][b] % 10) == 3.5)):
+                    if (((grille_base[a][b] % 10) == 1) or ((grille_base[a][b] % 10) == 2.5) or ((grille_base[a][b] % 10) == 3.5)):
                         screen.blit(fleche_haut, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut + cot))
 
-                    if (((grille_base[a][b] % 10) == 1.5) or ((grille_base[a][b] % 10) == 3.5) or (
-                            (grille_base[a][b] % 10) == 4)):
+                    if (((grille_base[a][b] % 10) == 1.5) or ((grille_base[a][b] % 10) == 3.5) or ((grille_base[a][b] % 10) == 4)):
                         screen.blit(fleche_droit, (b * (cot + mar) + marge_gauche + cot, a * (cot + mar) + marge_haut))
 
-                    if (((grille_base[a][b] % 10) == 2) or ((grille_base[a][b] % 10) == 3) or (
-                            (grille_base[a][b] % 10) == 4)):
+                    if (((grille_base[a][b] % 10) == 2) or ((grille_base[a][b] % 10) == 3) or ((grille_base[a][b] % 10) == 4)):
                         screen.blit(fleche_bas, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut + cot))
 
                     if (grille_base[a][b] > 89):  # Placement des chiffres de base
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P9, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 9
 
                     elif (grille_base[a][b] > 79):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P8, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 8
 
                     elif (grille_base[a][b] > 69):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P7, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 7
 
                     elif (grille_base[a][b] > 59):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P6, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 6
 
                     elif (grille_base[a][b] > 49):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P5, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 5
 
                     elif (grille_base[a][b] > 39):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P4, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 4
 
                     elif (grille_base[a][b] > 29):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P3, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 3
 
                     elif (grille_base[a][b] > 19):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P2, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 2
 
                     elif (grille_base[a][b] > 9):
                         pygame.draw.rect(screen, colorbase,
-                                         pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot,
-                                                     cot))
+                                        pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         screen.blit(P1, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                         grille[a][b] = 1
 
         return grille  # Renvoie la grille avec les chiffres de base
 
+
     def verifie_grille_finie(grille, grille_finie):
         return grille == grille_finie
+
 
     def gagner():
         image_gagner = pygame.image.load("assets/gagner.png").convert_alpha()
@@ -144,161 +137,109 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
                 for c in range(difficulte):
                     if ((b != c) and ((grille[a][b] != 0) and (grille[b][a] != 0))):
                         if (grille[a][b] == grille[a][c]):
-                            if (grille_base[a][b] < 10):  # Verifie que ce n'est pas un chiffre non modifiable
-                                pygame.draw.rect(screen, colorerreur, pygame.Rect(b * (cot + mar) + marge_gauche,
-                                                                                  a * (cot + mar) + marge_haut, cot,
-                                                                                  cot))
-                            if (grille_base[a][c] < 10):  # Verifie que ce n'est pas un chiffre non modifiable
-                                pygame.draw.rect(screen, colorerreur, pygame.Rect(c * (cot + mar) + marge_gauche,
-                                                                                  a * (cot + mar) + marge_haut, cot,
-                                                                                  cot))
+                            if (grille_base[a][b] < 10): #Verifie que ce n'est pas un chiffre non modifiable
+                                pygame.draw.rect(screen, colorerreur, pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                            if (grille_base[a][c] < 10): #Verifie que ce n'est pas un chiffre non modifiable
+                                pygame.draw.rect(screen, colorerreur, pygame.Rect(c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             # Réécris le chiffre par dessus la case selectionnée
                             if (grille[a][b] == 1):
-                                screen.blit(P1,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P1,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P1, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P1, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 2):
-                                screen.blit(P2,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P2,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P2, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P2, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 3):
-                                screen.blit(P3,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P3,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P3, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P3, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 4):
-                                screen.blit(P4,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P4,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P4, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P4, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 5):
-                                screen.blit(P5,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P5,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P5, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P5, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 6):
-                                screen.blit(P6,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P6,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 7):
-                                screen.blit(P7,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P7,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P7, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P7, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 8):
-                                screen.blit(P8,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P8,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P8, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P8, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 9):
-                                screen.blit(P9,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P9,
-                                            (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P9, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P9, (c * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+
 
                         if (grille[b][a] == grille[c][a]):
-                            if (grille_base[b][a] < 10):  # Verifie que ce n'est pas un chiffre non modifiable
+                            if (grille_base[b][a] < 10): #Verifie que ce n'est pas un chiffre non modifiable
                                 pygame.draw.rect(screen, colorerreur,
-                                                 pygame.Rect(a * (cot + mar) + marge_gauche,
-                                                             b * (cot + mar) + marge_haut, cot, cot))
-                            if (grille_base[c][a] < 10):  # Verifie que ce n'est pas un chiffre non modifiable
+                                            pygame.Rect(a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                            if (grille_base[c][a] < 10): #Verifie que ce n'est pas un chiffre non modifiable
                                 pygame.draw.rect(screen, colorerreur,
-                                                 pygame.Rect(a * (cot + mar) + marge_gauche,
-                                                             c * (cot + mar) + marge_haut, cot, cot))
+                                            pygame.Rect(a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             # Réécris le chiffre par dessus la case selectionnée
                             if (grille[b][a] == 1):
-                                screen.blit(P1,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P1,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P1, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P1, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 2):
-                                screen.blit(P2,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P2,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P2, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P2, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 3):
-                                screen.blit(P3,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P3,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P3, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P3, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 4):
-                                screen.blit(P4,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P4,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P4, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P4, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 5):
-                                screen.blit(P5,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P5,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P5, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P5, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 6):
-                                screen.blit(P6,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P6,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 7):
-                                screen.blit(P7,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P7,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P7, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P7, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 8):
-                                screen.blit(P8,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P8,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P8, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P8, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
                             if (grille[b][a] == 9):
-                                screen.blit(P9,
-                                            (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
-                                screen.blit(P9,
-                                            (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P9, (a * (cot + mar) + marge_gauche, b * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P9, (a * (cot + mar) + marge_gauche, c * (cot + mar) + marge_haut, cot, cot))
 
     def change_couleur_case_selec(x, y):
         grille_base = retourne_grille_base()
         if event.type == MOUSEBUTTONDOWN:  # a toi de voir si tu veux ne gérer que des clics particuliers
             for a in range(difficulte):  # Remet toutes les cases vide en blanc
                 for b in range(difficulte):
-                    if (((a != x) or (b != y)) and (grille_base[a][b] < 9)):  # Vérifie que la case est ni selectionnée
-                        # ni une case de base
+                    if (((a != x) or (b != y)) and (grille_base[a][b] < 9)): #Vérifie que la case est ni selectionnée
+                        #ni une case de base
                         pygame.draw.rect(screen, color, pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) +
-                                                                    marge_haut, cot, cot))  # Remet les cases en blanc
-                        if (grille[a][b] != 0):  # Réécris le chiffre par dessus
+                                                                    marge_haut, cot, cot)) #Remet les cases en blanc
+                        if (grille[a][b] != 0): #Réécris le chiffre par dessus
                             if (grille[a][b] == 1):
-                                screen.blit(P1,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P1, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 2):
-                                screen.blit(P2,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P2, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 3):
-                                screen.blit(P3,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P3, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 4):
-                                screen.blit(P4,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P4, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 5):
-                                screen.blit(P5,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P5, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 6):
-                                screen.blit(P6,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 6):
-                                screen.blit(P6,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P6, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 7):
-                                screen.blit(P7,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P7, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 8):
-                                screen.blit(P8,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P8, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
                             if (grille[a][b] == 9):
-                                screen.blit(P9,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
+                                screen.blit(P9, (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
 
             verifie_2_identiques()
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
+            pygame.draw.rect(screen, colorclick, pygame.Rect(y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
             if (grille[x][y] != 0):  # Réécris le chiffre par dessus la case selectionnée
                 if (grille[x][y] == 1):
                     screen.blit(P1, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
@@ -321,189 +262,106 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
                 if (grille[x][y] == 9):
                     screen.blit(P9, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
 
-    def changer_keynum():  # commande pour ecrire les chiffres au clavier
-        if event.key == K_KP1:
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 1
 
-        if event.key == K_KP2:
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 2
 
-        if event.key == K_KP3:
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 3
-
-        if event.key == K_KP4:
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 4
-
-        if (difficulte >= 5):
-            if event.key == K_KP5:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-                screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-
-        if (difficulte >= 6):
-            if event.key == K_KP6:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-                screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-
-        if (difficulte >= 7):
-            if event.key == K_KP7:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-                screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-
-        if (difficulte >= 8):
-            if event.key == K_KP8:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-                screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-        if (difficulte >= 9):
-            if event.key == K_KP9:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-                screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-
-        if (
-                event.key == K_BACKSPACE or event.key == K_KP0):  # pour effacer un chiffre au clavier soir retour arrière soit 0
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 0
 
     def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
         if clickable_area_G1.collidepoint(event.pos):
             if (grille[X][Y] == 1):  # Si le chiffre clique est deja sur la case alors efface la case
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 0  # remet la case à 0 dans la matrice
 
             else:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 1
 
         elif clickable_area_G2.collidepoint(event.pos):
             if (grille[X][Y] == 2):  # Si le chiffre clique est deja sur la case alors efface la case
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 0  # remet la case à 0 dans la matrice
             else:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 2
         elif clickable_area_G3.collidepoint(event.pos):
             if (grille[X][Y] == 3):  # Si le chiffre clique est deja sur la case alors efface la case
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 0  # remet la case à 0 dans la matrice
             else:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 3
         elif clickable_area_G4.collidepoint(event.pos):
             if (grille[X][Y] == 4):  # Si le chiffre clique est deja sur la case alors efface la case
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 0  # remet la case à 0 dans la matrice
             else:
-                pygame.draw.rect(screen, colorclick,
-                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 4
         if (difficulte >= 5):
             if clickable_area_G5.collidepoint(event.pos):
                 if (grille[X][Y] == 5):  # Si le chiffre clique est deja sur la case alors efface la case
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 0  # remet la case à 0 dans la matrice
                 else:
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 5
         if (difficulte >= 6):
             if clickable_area_G6.collidepoint(event.pos):
                 if (grille[X][Y] == 6):  # Si le chiffre clique est deja sur la case alors efface la case
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 0  # remet la case à 0 dans la matrice
                 else:
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 6
         if (difficulte >= 7):
             if clickable_area_G7.collidepoint(event.pos):
                 if (grille[X][Y] == 7):  # Si le chiffre clique est deja sur la case alors efface la case
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 0  # remet la case à 0 dans la matrice
                 else:
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 7
         if (difficulte >= 8):
             if clickable_area_G8.collidepoint(event.pos):
                 if (grille[X][Y] == 8):  # Si le chiffre clique est deja sur la case alors efface la case
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 0  # remet la case à 0 dans la matrice
                 else:
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 8
         if (difficulte >= 9):
             if clickable_area_G9.collidepoint(event.pos):
                 if (grille[X][Y] == 9):  # Si le chiffre clique est deja sur la case alors efface la case
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 0  # remet la case à 0 dans la matrice
                 else:
-                    pygame.draw.rect(screen, colorclick,
-                                     pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
-                                                 cot))
+                    pygame.draw.rect(screen, colorclick, pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                     grille[X][Y] = 9
+
+
 
     def click_sur_grille(grille, grille_rectangles):  # Sert a avoir les coordonnees du click sur la grille
         grille_base = retourne_grille_base()
         for i in range(difficulte):  # on cherche sur quel rectangle on a cliqué
             for j in range(difficulte):
                 if (grille_rectangles[i][j].collidepoint(
-                        event.pos) and (
-                        grille_base[j][i] < 9)):  # rectangle trouvé, on renvoie ses coordonées dans la grille
-                    x = math.floor(((event.pos[1] - 150) / (cot + mar)))  #
+                        event.pos) and (grille_base[j][i] < 9)):  # rectangle trouvé, on renvoie ses coordonées dans la grille
+                    x = math.floor(((event.pos[1] - 150) / (cot + mar))) #
                     # les coordonées sont inversées quand on passe de la grille a l'interface
                     y = math.floor((event.pos[0] - marge_gauche) / (cot + mar))
                     change_couleur_case_selec(x, y)
                     co = (x, y)  # renvoie les coordonées a la place de les passer en variable globale
                     return co
         return 0
+
 
     #############################    VARIABLES    ############################
     pygame.init()
@@ -514,12 +372,11 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
     # grille ou on appliquera les algo
     # la grille est initialisée a 0 partout
     grille_rectangles = [[0] * difficulte for i in
-                         range(
-                             difficulte)]  # grille interface (correspond aux rectangles qui sont des zones cliquables)
+                        range(difficulte)]  # grille interface (correspond aux rectangles qui sont des zones cliquables)
 
     grille_finie = la_grille_finie
 
-    mar = int((((WINDOW_SIZE[1] * 0.8) / difficulte) / 3))  # marge des rectangles
+    mar = int((((WINDOW_SIZE[1] * 0.8) / difficulte) / 3)) # marge des rectangles
     cot = int((((WINDOW_SIZE[1] * 0.8) / difficulte) / 3 * 2))
     marge_haut = 150
     marge_gauche = ((WINDOW_SIZE[0] - (difficulte * (cot + mar) - mar)) / 2)
@@ -529,7 +386,7 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
     running = True  # Vérifie si la fenetre doit rester ouverte
     screen.fill((0, 105, 102))  # met le fond en vert
     color = (255, 255, 255)  # couleur que l'on utilise pour les rectangles
-    colorerreur = (255, 0, 0)  # Couleur quand deux chiffres sont identiques sur la même ligne
+    colorerreur = (255, 0, 0) #Couleur quand deux chiffres sont identiques sur la même ligne
     colorclick = (255, 255, 35)  # couleur quand on click sur un rectangle
     colorbase = (170, 170, 170)  # couleur des chiffres de base non modifiables
     imagetitre = pygame.image.load("assets/titreFutoshiki.png").convert_alpha()  # Lecture du titre Futoshiki
@@ -630,6 +487,9 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
         screen.blit(G9, (891, 610))
         clickable_area_G9 = pygame.Rect((891, 610), (100, 100))
 
+
+
+
     retour = pygame.image.load("assets/retour.png").convert_alpha()
     clickable_area_retour = pygame.Rect((-10, 670), (240, 50))
     screen.blit(retour, (-10, 670))
@@ -655,16 +515,16 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
     for x in range(difficulte):
         for y in range(difficulte):
-            rect = pygame.draw.rect(screen, color,
-                                    pygame.Rect(x * (cot + mar) + marge_gauche, y * (cot + mar) + marge_haut, cot,
-                                                cot))  # dessine la "grille de dimension n"
+            rect = pygame.draw.rect(screen, color, pygame.Rect(x * (cot + mar) + marge_gauche, y * (cot + mar) + marge_haut, cot,
+                                                            cot))  # dessine la "grille de dimension n"
             grille_rectangles[x][y] = rect
 
     clock = pygame.time.Clock()
-    X = -1  # coordonneé de la grille x de la dernière case cliquée
-    Y = -1  # coordonneé de la grille y de la dernière case cliquée
+    X = -1 #coordonneé de la grille x de la dernière case cliquée
+    Y = -1  #coordonneé de la grille y de la dernière case cliquée
     clicked = True
     grille = installe_grille()
+   
     #############################    MAIN    ############################
 
     while running:  # Tant que la fentetre est en cours
@@ -675,17 +535,14 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
         if (event.type == MOUSEBUTTONDOWN and clicked):
             clicked = False
-            if (click_sur_grille(grille, grille_rectangles)  and verifie_grille_finie(grille, grille_finie)==False):
+            if (click_sur_grille(grille, grille_rectangles)):
                 X = click_sur_grille(grille, grille_rectangles)[0]
                 Y = click_sur_grille(grille, grille_rectangles)[1]
-            if (X != -1  and verifie_grille_finie(grille, grille_finie)==False):
+            if (X != -1):
                 changer_num(X, Y)
             if clickable_area_retour.collidepoint(event.pos):
-                from levels import levels
-                levels(difficulte)
-
-        if (event.type == KEYDOWN and X != -1 and verifie_grille_finie(grille, grille_finie)==False):
-            changer_keynum()
+                from main import menuLevels
+                menuLevels(screen, difficulte)
 
         if (event.type == MOUSEBUTTONUP):  # besoin de cette condition pour triter les clicks 1 a 1
             clicked = True
