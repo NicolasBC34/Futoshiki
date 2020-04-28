@@ -14,7 +14,7 @@
 import pygame, os, math, json
 from pygame.locals import *
 
-def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
+def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
 
 
 
@@ -37,13 +37,13 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
 
         # sont les chiffres de base non modifianble
-        fleche_gauche = pygame.image.load("assets/fleche_gauche.png").convert_alpha()
+        fleche_gauche = pygame.image.load("Ressources/assets/fleche_gauche.png").convert_alpha()
         fleche_gauche = pygame.transform.scale(fleche_gauche, (mar, cot))
-        fleche_haut = pygame.image.load("assets/fleche_haut.png").convert_alpha()
+        fleche_haut = pygame.image.load("Ressources/assets/fleche_haut.png").convert_alpha()
         fleche_haut = pygame.transform.scale(fleche_haut, (cot, mar))
-        fleche_droit = pygame.image.load("assets/fleche_droit.png").convert_alpha()
+        fleche_droit = pygame.image.load("Ressources/assets/fleche_droit.png").convert_alpha()
         fleche_droit = pygame.transform.scale(fleche_droit, (mar, cot))
-        fleche_bas = pygame.image.load("assets/fleche_bas.png").convert_alpha()
+        fleche_bas = pygame.image.load("Ressources/assets/fleche_bas.png").convert_alpha()
         fleche_bas = pygame.transform.scale(fleche_bas, (cot, mar))
 
         for a in range(difficulte):  # Lecture de la grille de base
@@ -125,7 +125,7 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
 
     def gagner():
-        image_gagner = pygame.image.load("assets/gagner.png").convert_alpha()
+        image_gagner = pygame.image.load("Ressources/assets/gagner.png").convert_alpha()
         screen.blit(image_gagner, (190, 150))
         gagner = True
         return gagner
@@ -367,6 +367,7 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
     pygame.init()
     WINDOW_SIZE = [1080, 720]
     screen = pygame.display.set_mode(WINDOW_SIZE)
+    background = (0, 105, 102)
     pygame.display.set_caption("Futoshiki")  # titre de la fenetre
 
     # grille ou on appliquera les algo
@@ -381,26 +382,29 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
     marge_haut = 150
     marge_gauche = ((WINDOW_SIZE[0] - (difficulte * (cot + mar) - mar)) / 2)
 
-    Icone = pygame.image.load("assets/icone.jpg")  # lecture de l'icone
+    Icone = pygame.image.load("Ressources/assets/icone.jpg")  # lecture de l'icone
     pygame.display.set_icon(Icone)  # mettre l'icone
     running = True  # Vérifie si la fenetre doit rester ouverte
-    screen.fill((0, 105, 102))  # met le fond en vert
+    screen.fill(background)  # met le fond en vert
     color = (255, 255, 255)  # couleur que l'on utilise pour les rectangles
     colorerreur = (255, 0, 0) #Couleur quand deux chiffres sont identiques sur la même ligne
     colorclick = (255, 255, 35)  # couleur quand on click sur un rectangle
     colorbase = (170, 170, 170)  # couleur des chiffres de base non modifiables
-    imagetitre = pygame.image.load("assets/titreFutoshiki.png").convert_alpha()  # Lecture du titre Futoshiki
-    screen.blit(imagetitre, (278, 20))  # Affichage du titre Futoshiki
 
-    G1 = pygame.image.load("assets/G1.png").convert_alpha()  # Lecture des images des niveaux
-    G2 = pygame.image.load("assets/G2.png").convert_alpha()
-    G3 = pygame.image.load("assets/G3.png").convert_alpha()
-    G4 = pygame.image.load("assets/G4.png").convert_alpha()
-    G5 = pygame.image.load("assets/G5.png").convert_alpha()
-    G6 = pygame.image.load("assets/G6.png").convert_alpha()
-    G7 = pygame.image.load("assets/G7.png").convert_alpha()
-    G8 = pygame.image.load("assets/G8.png").convert_alpha()
-    G9 = pygame.image.load("assets/G9.png").convert_alpha()
+    # Chargement des polices
+    titleFont = pygame.font.Font("Ressources/go3v2.ttf", 100)  
+    subMenuFont = pygame.font.Font("Ressources/go3v2.ttf", 60)
+
+    #chargement assets, zones cliquables et affichage écran
+    G1 = pygame.image.load("Ressources/assets/G1.png").convert_alpha() 
+    G2 = pygame.image.load("Ressources/assets/G2.png").convert_alpha()
+    G3 = pygame.image.load("Ressources/assets/G3.png").convert_alpha()
+    G4 = pygame.image.load("Ressources/assets/G4.png").convert_alpha()
+    G5 = pygame.image.load("Ressources/assets/G5.png").convert_alpha()
+    G6 = pygame.image.load("Ressources/assets/G6.png").convert_alpha()
+    G7 = pygame.image.load("Ressources/assets/G7.png").convert_alpha()
+    G8 = pygame.image.load("Ressources/assets/G8.png").convert_alpha()
+    G9 = pygame.image.load("Ressources/assets/G9.png").convert_alpha()
 
     if (difficulte == 4):
         screen.blit(G1, (892, 150))  # Affichage des grands numéros cliquable
@@ -487,31 +491,30 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
         screen.blit(G9, (891, 610))
         clickable_area_G9 = pygame.Rect((891, 610), (100, 100))
 
-
-
-
-    retour = pygame.image.load("assets/retour.png").convert_alpha()
-    clickable_area_retour = pygame.Rect((-10, 670), (240, 50))
-    screen.blit(retour, (-10, 670))
-
-    P1 = pygame.image.load("assets/P1.png").convert_alpha()  # Lecture des petits numéros qui vont sur la grille
+    P1 = pygame.image.load("Ressources/assets/P1.png").convert_alpha() 
     P1 = pygame.transform.scale(P1, (cot, cot))
-    P2 = pygame.image.load("assets/P2.png").convert_alpha()
+    P2 = pygame.image.load("Ressources/assets/P2.png").convert_alpha()
     P2 = pygame.transform.scale(P2, (cot, cot))
-    P3 = pygame.image.load("assets/P3.png").convert_alpha()
+    P3 = pygame.image.load("Ressources/assets/P3.png").convert_alpha()
     P3 = pygame.transform.scale(P3, (cot, cot))
-    P4 = pygame.image.load("assets/P4.png").convert_alpha()
+    P4 = pygame.image.load("Ressources/assets/P4.png").convert_alpha()
     P4 = pygame.transform.scale(P4, (cot, cot))
-    P5 = pygame.image.load("assets/P5.png").convert_alpha()
+    P5 = pygame.image.load("Ressources/assets/P5.png").convert_alpha()
     P5 = pygame.transform.scale(P5, (cot, cot))
-    P6 = pygame.image.load("assets/P6.png").convert_alpha()
+    P6 = pygame.image.load("Ressources/assets/P6.png").convert_alpha()
     P6 = pygame.transform.scale(P6, (cot, cot))
-    P7 = pygame.image.load("assets/P7.png").convert_alpha()
+    P7 = pygame.image.load("Ressources/assets/P7.png").convert_alpha()
     P7 = pygame.transform.scale(P7, (cot, cot))
-    P8 = pygame.image.load("assets/P8.png").convert_alpha()
+    P8 = pygame.image.load("Ressources/assets/P8.png").convert_alpha()
     P8 = pygame.transform.scale(P8, (cot, cot))
-    P9 = pygame.image.load("assets/P9.png").convert_alpha()
+    P9 = pygame.image.load("Ressources/assets/P9.png").convert_alpha()
     P9 = pygame.transform.scale(P9, (cot, cot))
+
+    clickable_area_retour = pygame.Rect((10, 650), (240, 50))
+
+    #affichage écran des polices
+    screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
+    screen.blit(titleFont.render("Futoshiki", True, (0, 0, 0)), (330, 30))
 
     for x in range(difficulte):
         for y in range(difficulte):
@@ -519,11 +522,22 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
                                                             cot))  # dessine la "grille de dimension n"
             grille_rectangles[x][y] = rect
 
-    clock = pygame.time.Clock()
     X = -1 #coordonneé de la grille x de la dernière case cliquée
     Y = -1  #coordonneé de la grille y de la dernière case cliquée
     clicked = True
     grille = installe_grille()
+
+    # clock settings
+    
+    clock = pygame.time.Clock()
+    minutes = 0
+    seconds = 0
+    text = '0:00'.rjust(3)
+    pygame.time.set_timer(pygame.USEREVENT, 1000)
+    timerfont = pygame.font.Font("Ressources/go3v2.ttf", 90)
+    timeLabelFont = pygame.font.Font("Ressources/go3v2.ttf", 30)
+    screen.blit(timeLabelFont.render("TEMPS", True, (0, 0, 0)), (85, 150))  
+    recorded = False
    
     #############################    MAIN    ############################
 
@@ -531,23 +545,64 @@ def def_Futoshiki(difficulte, la_grille_base, la_grille_finie):
 
         for event in pygame.event.get():  # Pour chaque evenement
             if event.type == pygame.QUIT:
-                running = False
+                pygame.quit()
+                quit()
 
-        if (event.type == MOUSEBUTTONDOWN and clicked):
-            clicked = False
-            if (click_sur_grille(grille, grille_rectangles)):
-                X = click_sur_grille(grille, grille_rectangles)[0]
-                Y = click_sur_grille(grille, grille_rectangles)[1]
-            if (X != -1):
-                changer_num(X, Y)
-            if clickable_area_retour.collidepoint(event.pos):
-                from main import menuLevels
-                menuLevels(screen, difficulte)
+            if (event.type == MOUSEBUTTONDOWN and clicked):
+                clicked = False
+                if (click_sur_grille(grille, grille_rectangles)):
+                    X = click_sur_grille(grille, grille_rectangles)[0]
+                    Y = click_sur_grille(grille, grille_rectangles)[1]
+                if (X != -1):
+                    changer_num(X, Y)
+                if clickable_area_retour.collidepoint(event.pos):
+                    from main import menuLevels
+                    menuLevels(screen, difficulte)
 
-        if (event.type == MOUSEBUTTONUP):  # besoin de cette condition pour triter les clicks 1 a 1
-            clicked = True
-        if (verifie_grille_finie(grille, grille_finie)):
-            gagner()
+            if event.type == MOUSEBUTTONUP:  # besoin de cette condition pour triter les clicks 1 a 1
+                clicked = True
+
+            if event.type == USEREVENT: # permet de gérer le timer
+                if (not recorded): # tant que la partie n'est pas finie on fait tourner le timer
+                    seconds += 1
+                    if seconds == 60:
+                        seconds = 0
+                        minutes += 1
+                    str_mintes = str(minutes)
+                    str_seconds = str(seconds) if seconds > 9 else "0" + str(seconds)
+                    text = str_mintes + ":" + str_seconds
+
+                    pygame.draw.rect(screen, background, (50,180, 200, 100))
+                    screen.blit(timerfont.render(text, True, (0, 0, 0)), (50, 180))
+                    clock.tick(60)
+
+            if (verifie_grille_finie(grille, grille_finie)):
+                # on enregistre le score
+                diff_key = str(difficulte) + "x" + str(difficulte)
+                level_key = "level" + str(level)
+
+                if (not recorded):
+                    with open('scores.json', 'r') as scoresfile: # ouverture du fichier en lecture pour en retouner son contenu
+                        data = json.load(scoresfile)
+                        score = (minutes * 60) + seconds
+                        
+
+                    if len(data[diff_key][level_key]) == 10:
+                        if data[diff_key][level_key][9] > score:
+                            data[diff_key][level_key].remove(data[diff_key][level_key][9])
+                            data[diff_key][level_key].append(score)
+                            data[diff_key][level_key].sort()
+                    else:
+                        data[diff_key][level_key].append(score)
+                        data[diff_key][level_key].sort()
+                    
+
+                    with open('scores.json', 'w') as scoresfile:
+                        json.dump(data, scoresfile, indent=4)
+
+                    recorded = True
+
+                gagner()
 
         pygame.display.flip()
 
