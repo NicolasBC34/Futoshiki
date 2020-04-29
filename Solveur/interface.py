@@ -130,12 +130,27 @@ def recons(grilleV, grilleRect, li):
         for j in range(dim_V):
             if j % 2 == 0 and i % 2 == 0:
                 screen.blit(li[grilleV[i][j]], dest(grilleRect, i, j))
+                
+def reset(grilleV, grilleRect):
+    for i in range(dim_V):
+        for j in range(dim_V):
+            grilleV[i][j] = 0
+            if i % 2 !=0 or j % 2 != 0:
+                if grilleRect[i][j] != 0:
+                    screen.blit(psp, destSP(grilleRect, i, j))
+    affiche_grille(grilleRect)
+    
+def destSP(grille, i,  j):
+    return [(grille[i][j].x + 1), (grille[i][j].y + 1)]                
 
 
 font = pygame.font.SysFont("Times New Roman, Arial", 50)
 bouton = font.render("Résoudre", True, color)
 bouton_C = bouton.get_rect(topleft = (40, 550))
 screen.blit(bouton, (40, 550))
+bouton2 = font.render("Reset", True, color)
+bouton_R = bouton2.get_rect(topleft = (40, 600))
+screen.blit(bouton2, (40, 600))
 
 affiche_grille(grille_rectangles)
 li = affichageN()
@@ -160,6 +175,10 @@ while running:
             running = False
             #sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
+             if bouton_R.collidepoint(pygame.mouse.get_pos()):
+                reset(grille_valeurs, grille_rectangles)
+                pr(grille_valeurs)
+                print("<---------------------------->")
             if bouton_C.collidepoint( pygame.mouse.get_pos()):
                 if Solveur(grille_valeurs, dim_V, dim):
                     AfficheG(grille_valeurs, dim_V)
