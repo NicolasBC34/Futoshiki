@@ -11,7 +11,7 @@
 
     #############################    IMPORTATIONS    ############################
 
-import pygame, os, math, json
+import pygame, os, math, json, random
 from pygame.locals import *
 
 def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
@@ -362,6 +362,75 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                     return co
         return 0
 
+    def afficher_indice():
+        fait = False
+        liste_case_vide = []
+        nombre_case_vide = 0
+        for X in range(difficulte):
+            for Y in range(difficulte):
+                if (grille[X][Y] == 0):
+                    liste_case_vide.append(X)
+                    liste_case_vide.append(Y)
+                    nombre_case_vide = nombre_case_vide + 1
+        case_selec = random.randint(1 , 14)
+        X = liste_case_vide[(case_selec * 2) - 2]
+        Y = liste_case_vide[(case_selec * 2) - 1]
+        indice = grille_finie[X][Y]
+        print(liste_case_vide)
+        print("Nombre de case vide :",(nombre_case_vide))
+        print("La case séléctionnée est la ", case_selec, "ème,", X,"X", Y,"Y")
+        print("L'indice est", indice)
+        if (indice == 1):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 1
+        elif (indice == 2):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 2
+        elif (indice == 3):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 3
+        elif (indice == 4):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 4
+        elif (indice == 5):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 5
+        elif (indice == 6):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 6
+        elif (indice == 7):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 7
+        elif (indice == 8):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 8
+        elif (indice == 9):
+            pygame.draw.rect(screen, colorclick,
+                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+            grille[X][Y] = 9
+
+
+
+
+
+
 
     #############################    VARIABLES    ############################
     pygame.init()
@@ -511,9 +580,11 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
     P9 = pygame.transform.scale(P9, (cot, cot))
 
     clickable_area_retour = pygame.Rect((10, 650), (240, 50))
+    clickable_area_indice = pygame.Rect((10, 400), (240, 50))
 
     #affichage écran des polices
     screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
+    screen.blit(subMenuFont.render("Indice", True, (0, 0, 0)), (10, 400))
     screen.blit(titleFont.render("Futoshiki", True, (0, 0, 0)), (330, 30))
 
     for x in range(difficulte):
@@ -558,6 +629,8 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                 if clickable_area_retour.collidepoint(event.pos):
                     from main import menuLevels
                     menuLevels(screen, difficulte)
+                if clickable_area_indice.collidepoint(event.pos):
+                    afficher_indice()
 
             if event.type == MOUSEBUTTONUP:  # besoin de cette condition pour triter les clicks 1 a 1
                 clicked = True
