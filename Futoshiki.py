@@ -36,7 +36,7 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
         # bas = 2
 
 
-        # sont les chiffres de base non modifianble
+        # sont les chiffres de base non modifiable
         fleche_gauche = pygame.image.load("Ressources/assets/fleche_gauche.png").convert_alpha()
         fleche_gauche = pygame.transform.scale(fleche_gauche, (mar, cot))
         fleche_haut = pygame.image.load("Ressources/assets/fleche_haut.png").convert_alpha()
@@ -379,47 +379,47 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
             indice = grille_finie[X][Y]
 
             if (indice == 1):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 1
             elif (indice == 2):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 2
             elif (indice == 3):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 3
             elif (indice == 4):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 4
             elif (indice == 5):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 5
             elif (indice == 6):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 6
             elif (indice == 7):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 7
             elif (indice == 8):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 8
             elif (indice == 9):
-                pygame.draw.rect(screen, colorclick,
+                pygame.draw.rect(screen, colorindice,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = 9
@@ -456,6 +456,7 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
     color = (255, 255, 255)  # couleur que l'on utilise pour les rectangles
     colorerreur = (255, 0, 0) #Couleur quand deux chiffres sont identiques sur la même ligne
     colorclick = (255, 255, 35)  # couleur quand on click sur un rectangle
+    colorindice = (0, 255, 0) # couleur quand on prend un indice
     colorbase = (170, 170, 170)  # couleur des chiffres de base non modifiables
 
     # Chargement des polices
@@ -617,7 +618,7 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                 pygame.quit()
                 quit()
 
-            if (event.type == MOUSEBUTTONDOWN and clicked):
+            if (event.type == MOUSEBUTTONDOWN and clicked and verifie_grille_finie(grille, grille_finie) == False):
                 clicked = False
                 if (click_sur_grille(grille, grille_rectangles)):
                     X = click_sur_grille(grille, grille_rectangles)[0]
@@ -629,6 +630,11 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                     menuLevels(screen, difficulte)
                 if clickable_area_indice.collidepoint(event.pos):
                     afficher_indice()
+
+            if (event.type == MOUSEBUTTONDOWN and clicked):
+                if clickable_area_retour.collidepoint(event.pos):
+                    from main import menuLevels
+                    menuLevels(screen, difficulte)
 
             if event.type == MOUSEBUTTONUP:  # besoin de cette condition pour triter les clicks 1 a 1
                 clicked = True
