@@ -182,6 +182,7 @@ def menuRegles(screen):
     #Définition des polices
     titleFont = pygame.font.Font("Ressources/go3v2.ttf", 100)
     subMenuFont = pygame.font.Font("Ressources/go3v2.ttf", 60)
+    texteRegles = pygame.font.Font("Ressources/go3v2.ttf", 40)
 
     #zones cliquables
     clickable_area_retour = pygame.Rect((10, 650), (240, 50))
@@ -189,6 +190,15 @@ def menuRegles(screen):
     #affichage à l'écran
     screen.blit(titleFont.render("Règles", True, (0, 0, 0)), (370, 30))
     screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
+    screen.blit(texteRegles.render('Le Futoshiki est fondé sur une grille carrée ', True, (0, 0, 0)), (25, 150))
+    screen.blit(texteRegles.render('dans laquelle sont inscrits des nombres suivant ', True, (0, 0, 0)), (25, 200))
+    screen.blit(texteRegles.render('quelques règles simples. Sur une grille de 5x5, ', True, (0, 0, 0)), (25, 250))
+    screen.blit(texteRegles.render('les nombres de un à cinq doivent être placés dans ', True, (0, 0, 0)), (25, 300))
+    screen.blit(texteRegles.render('chaque ligne et chaque colonne, sans aucune ', True, (0, 0, 0)), (25, 350))
+    screen.blit(texteRegles.render('répétition. Les signes "plus grand que" ou ', True, (0, 0, 0)), (25, 400))
+    screen.blit(texteRegles.render('"plus petit que" entre les cases sont des indices ', True, (0, 0, 0)), (25, 450))
+    screen.blit(texteRegles.render('qui doivent obligatoirement être respectés. ', True, (0, 0, 0)), (25, 500))
+    screen.blit(texteRegles.render('Chaque grille possède une solution unique.', True, (0, 0, 0)), (25, 550))
     
 
     menuReglesActive = True
