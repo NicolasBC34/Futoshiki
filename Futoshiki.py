@@ -372,14 +372,11 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                     liste_case_vide.append(X)
                     liste_case_vide.append(Y)
                     nombre_case_vide = nombre_case_vide + 1
-        case_selec = random.randint(1 , 14)
-        X = liste_case_vide[(case_selec * 2) - 2]
-        Y = liste_case_vide[(case_selec * 2) - 1]
+        case_selec = random.randint(1 , nombre_case_vide)
+        X = liste_case_vide[((case_selec * 2) - 2)]
+        Y = liste_case_vide[((case_selec * 2) - 1)]
         indice = grille_finie[X][Y]
-        print(liste_case_vide)
-        print("Nombre de case vide :",(nombre_case_vide))
-        print("La case séléctionnée est la ", case_selec, "ème,", X,"X", Y,"Y")
-        print("L'indice est", indice)
+        
         if (indice == 1):
             pygame.draw.rect(screen, colorclick,
                              pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
