@@ -372,56 +372,57 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
                     liste_case_vide.append(X)
                     liste_case_vide.append(Y)
                     nombre_case_vide = nombre_case_vide + 1
-        case_selec = random.randint(1 , nombre_case_vide)
-        X = liste_case_vide[((case_selec * 2) - 2)]
-        Y = liste_case_vide[((case_selec * 2) - 1)]
-        indice = grille_finie[X][Y]
-        
-        if (indice == 1):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 1
-        elif (indice == 2):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 2
-        elif (indice == 3):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 3
-        elif (indice == 4):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 4
-        elif (indice == 5):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 5
-        elif (indice == 6):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 6
-        elif (indice == 7):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 7
-        elif (indice == 8):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 8
-        elif (indice == 9):
-            pygame.draw.rect(screen, colorclick,
-                             pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
-            grille[X][Y] = 9
+        if (nombre_case_vide != 0):
+            case_selec = random.randint(1 , nombre_case_vide)
+            X = liste_case_vide[((case_selec * 2) - 2)]
+            Y = liste_case_vide[((case_selec * 2) - 1)]
+            indice = grille_finie[X][Y]
+
+            if (indice == 1):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P1, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 1
+            elif (indice == 2):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 2
+            elif (indice == 3):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 3
+            elif (indice == 4):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P4, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 4
+            elif (indice == 5):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P5, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 5
+            elif (indice == 6):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P6, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 6
+            elif (indice == 7):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P7, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 7
+            elif (indice == 8):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P8, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 8
+            elif (indice == 9):
+                pygame.draw.rect(screen, colorclick,
+                                 pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                screen.blit(P9, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
+                grille[X][Y] = 9
 
 
 
