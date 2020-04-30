@@ -29,7 +29,8 @@ def menuAccueil(screen):
     clickable_area_X8 = pygame.Rect((478, 385), (200, 100))
     clickable_area_X9 = pygame.Rect((705, 385), (200, 100))
     clickable_area_REG = pygame.Rect((320, 550), (200, 100))
-    clickable_area_QUIT = pygame.Rect((600, 550), (200, 100))
+    clickable_area_SOL = pygame.Rect((600, 550), (200, 100))
+    clickable_area_QUIT = pygame.Rect((460, 640), (200, 100))
 
     #affichage à l'écran
     screen.blit(titleFont.render("Futoshiki", True, (0, 0, 0)), (330, 50))  
@@ -40,7 +41,8 @@ def menuAccueil(screen):
     screen.blit(itemFont.render("8X8", True, (0, 0, 0)), (478, 385))
     screen.blit(itemFont.render("9X9", True, (0, 0, 0)), (705, 385))
     screen.blit(subMenuFont.render("Règles", True, (0, 0, 0)), (320, 550))
-    screen.blit(subMenuFont.render("Quitter", True, (0, 0, 0)), (600, 550))
+    screen.blit(subMenuFont.render("Solveur", True, (0, 0, 0)), (600, 550))
+    screen.blit(subMenuFont.render("Quitter", True, (0, 0, 0)), (460, 640))
 
     menuAccueilActive = True
 
@@ -70,6 +72,9 @@ def menuAccueil(screen):
                     menuAccueilActive = False
                 if clickable_area_REG.collidepoint(event.pos):
                     menuRegles(screen)
+                    menuAccueilActive = False
+                if clickable_area_SOL.collidepoint(event.pos):
+                    menuSolveur(screen)
                     menuAccueilActive = False
                 if clickable_area_QUIT.collidepoint(event.pos):
                     pygame.quit()
@@ -175,19 +180,19 @@ def menuLevels(screen, difficulte):
             
             pygame.display.flip()
 
-                
-def menuRegles(screen):
-    screen.fill((0, 105, 102)) 
 
-    #Définition des polices
+def menuRegles(screen):
+    screen.fill((0, 105, 102))
+
+    # Définition des polices
     titleFont = pygame.font.Font("Ressources/go3v2.ttf", 100)
     subMenuFont = pygame.font.Font("Ressources/go3v2.ttf", 60)
     texteRegles = pygame.font.Font("Ressources/go3v2.ttf", 40)
 
-    #zones cliquables
+    # zones cliquables
     clickable_area_retour = pygame.Rect((10, 650), (240, 50))
 
-    #affichage à l'écran
+    # affichage à l'écran
     screen.blit(titleFont.render("Règles", True, (0, 0, 0)), (370, 30))
     screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
     screen.blit(texteRegles.render('Le Futoshiki est fondé sur une grille carrée ', True, (0, 0, 0)), (25, 150))
@@ -199,7 +204,6 @@ def menuRegles(screen):
     screen.blit(texteRegles.render('"plus petit que" entre les cases sont des indices ', True, (0, 0, 0)), (25, 450))
     screen.blit(texteRegles.render('qui doivent obligatoirement être respectés. ', True, (0, 0, 0)), (25, 500))
     screen.blit(texteRegles.render('Chaque grille possède une solution unique.', True, (0, 0, 0)), (25, 550))
-    
 
     menuReglesActive = True
 
@@ -208,8 +212,69 @@ def menuRegles(screen):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-                
+
             if (event.type == MOUSEBUTTONDOWN):
+                if clickable_area_retour.collidepoint(event.pos):
+                    menuAccueil(screen)
+
+            pygame.display.flip()
+
+
+def menuSolveur(screen):
+    screen.fill((0, 105, 102))
+
+    # Définition des polices
+    itemFont = pygame.font.Font("Ressources/go3v2.ttf", 85)
+    titleFont = pygame.font.Font("Ressources/go3v2.ttf", 100)
+    subMenuFont = pygame.font.Font("Ressources/go3v2.ttf", 60)
+
+    # zones cliquables
+    #zones cliquables
+    clickable_area_X4 = pygame.Rect((250, 240), (200, 100))
+    clickable_area_X5 = pygame.Rect((478, 240), (200, 100))
+    clickable_area_X6 = pygame.Rect((705, 240), (200, 100))
+    clickable_area_X7 = pygame.Rect((250, 385), (200, 100))
+    clickable_area_X8 = pygame.Rect((478, 385), (200, 100))
+    clickable_area_X9 = pygame.Rect((705, 385), (200, 100))
+    clickable_area_retour = pygame.Rect((10, 650), (240, 50))
+
+    # affichage à l'écran
+    screen.blit(itemFont.render("4X4", True, (0, 0, 0)), (250, 240))
+    screen.blit(itemFont.render("5X5", True, (0, 0, 0)), (478, 240))
+    screen.blit(itemFont.render("6X6", True, (0, 0, 0)), (705, 240))
+    screen.blit(itemFont.render("7X7", True, (0, 0, 0)), (250, 385))
+    screen.blit(itemFont.render("8X8", True, (0, 0, 0)), (478, 385))
+    screen.blit(itemFont.render("9X9", True, (0, 0, 0)), (705, 385))
+    screen.blit(titleFont.render("Solveur", True, (0, 0, 0)), (370, 30))
+    screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
+
+    menuReglesActive = True
+
+    while menuReglesActive:  # Tant que la fentetre est en cours
+        for event in pygame.event.get():  # Pour chaque evenement
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if (event.type == MOUSEBUTTONDOWN):
+                if clickable_area_X4.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(4)
+                if clickable_area_X5.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(5)
+                if clickable_area_X6.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(6)
+                if clickable_area_X7.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(7)
+                if clickable_area_X8.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(8)
+                if clickable_area_X9.collidepoint(event.pos):
+                    from Solveur import def_Solveur
+                    def_Solveur(9)
                 if clickable_area_retour.collidepoint(event.pos):
                     menuAccueil(screen)
 
