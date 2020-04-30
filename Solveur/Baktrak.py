@@ -182,7 +182,7 @@ class Cell:
                     expr=expr[:-1]                     
         if(li[2]!=0):
             expr=str(grille[self.abs][self.ord])+li[2]
-            TabCell[self.abs][self.ord+2]=Cell(Dv , self.abs, self.ord+1) #propagation de l'update des ">,<" en créant une nouvelle cellule plus loin
+            TabCell[self.abs][self.ord+2]=Cell(Dv , self.abs, self.ord+2) #propagation de l'update des ">,<" en créant une nouvelle cellule plus loin
             for i,e in enumerate(TabCell[self.abs][self.ord+2].choix):
                 expr+=str(i+1)
                 if(not eval(expr)):
