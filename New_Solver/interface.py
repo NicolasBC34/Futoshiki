@@ -1,5 +1,4 @@
 
-
 import pygame
 import sys
 
@@ -8,13 +7,14 @@ WINDOW_SIZE = [1080, 720]
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Solveur")  # titre de la fenetre
 dim = 4
-dim_V = (2*dim)-1
+dim_V = ( 2 *dim ) -1
 grille_rectangles = [[0] * dim_V for i in range(dim_V)]
 grille_valeurs = [[0] * dim_V for i in range(dim_V)]
 
 running = True
 color = (255, 255, 255)
-color_bg = (0, 105, 102)  
+black = (0, 0, 0)
+color_bg = (0, 105, 102)
 color_menus = (0, 70, 67)
 
 
@@ -35,20 +35,24 @@ def affiche_grille(grille_rectangles):
                 grille_rectangles[x][y] = 0
             else:
                 if( x % 2 == 1 or y % 2 == 1):
-                    rect = pygame.draw.rect(screen, color ,pygame.Rect(x * (cot + marS) + marge_gauche , y * (cot + marS) +
-                                                                marge_haut, cot, cot), 2 )
+                    rect = pygame.draw.rect(screen, color
+                                            ,pygame.Rect(x * (cot + marS) + marge_gauche, y * (cot + marS) +
+                                                        marge_haut, cot, cot), 2)
                     pygame.display.update()
                     grille_rectangles[x][y] = rect
-                else :
-                    rect = pygame.draw.rect(screen, color, pygame.Rect(x * (cot + marS) + marge_gauche , y * (cot + marS) +
-                                                           marge_haut, cot, cot))
+                else:
+                    rect = pygame.draw.rect(screen, color,
+                                            pygame.Rect(x * (cot + marS) + marge_gauche, y * (cot + marS) +
+                                                        marge_haut, cot, cot))
                     grille_rectangles[x][y] = rect
                     pygame.display.update()
 
-def is_valeur(i,j): #teste si une case est éligible a avoir une valeur (cases dont les coordonnées sont paires)
-    return (i % 2 == 0 and j % 2 ==0)
 
-def dest(grille, i, j): #donne les coordonées exactes pour blit les nombres dans les cases
+def is_valeur(i, j):  # teste si une case est éligible a avoir une valeur (cases dont les coordonnées sont paires)
+    return (i % 2 == 0 and j % 2 == 0)
+
+
+def dest(grille, i, j):  # donne les coordonées exactes pour blit les nombres dans les cases
     return [(grille[i][j].x + 1), (grille[i][j].y + 1)]
 
 
@@ -63,17 +67,17 @@ f1 = pygame.image.load("fleche_gauche.png")
 f2 = pygame.image.load("fleche_haut.png")
 f3 = pygame.image.load("fleche_droit.png")
 f4 = pygame.image.load("fleche_bas.png")
-def affichageN():
-   
-    p1_C = p1.get_rect(topleft = (10, 20 + marge_haut))
-    p2_C = p2.get_rect(topleft = (10, 120 + marge_haut))
-    p3_C = p3.get_rect(topleft = (10, 220 + marge_haut))
-    p4_C = p4.get_rect(topleft = (10, 320 + marge_haut))
-    f1_C = f1.get_rect(topleft = (110, 20 + marge_haut))
-    f2_C = f2.get_rect(topleft = (110, 120 + marge_haut))
-    f3_C = f3.get_rect(topleft = (110, 220 + marge_haut))
-    f4_C = f4.get_rect(topleft = (110, 320 + marge_haut))
 
+
+def affichageN():
+    p1_C = p1.get_rect(topleft=(10, 20 + marge_haut))
+    p2_C = p2.get_rect(topleft=(10, 120 + marge_haut))
+    p3_C = p3.get_rect(topleft=(10, 220 + marge_haut))
+    p4_C = p4.get_rect(topleft=(10, 320 + marge_haut))
+    f1_C = f1.get_rect(topleft=(110, 20 + marge_haut))
+    f2_C = f2.get_rect(topleft=(110, 120 + marge_haut))
+    f3_C = f3.get_rect(topleft=(110, 220 + marge_haut))
+    f4_C = f4.get_rect(topleft=(110, 320 + marge_haut))
 
     screen.blit(psp2, (10, 20 + marge_haut))
     screen.blit(p1, (10, 20 + marge_haut))
@@ -91,22 +95,22 @@ def affichageN():
     screen.blit(f3, (110, 220 + marge_haut))
     screen.blit(psp2, (110, 320 + marge_haut))
     screen.blit(f4, (110, 320 + marge_haut))
-    
-    
-    return {p0 : "blanc", p1 : p1_C, p2 : p2_C, p3 : p3_C, p4 : p4_C, f1 : f1_C, f2 : f2_C, f3 : f3_C, f4 : f4_C, psp : "tutu"}
+
+    return {p0: "blanc", p1: p1_C, p2: p2_C, p3: p3_C, p4: p4_C, f1: f1_C, f2: f2_C, f3: f3_C, f4: f4_C, psp: "tutu"}
 
 
-def get_cle(dict, val):  #pour récupérer la clé d'un dico a partir d'une valeur
+def get_cle(dict, val):  # pour récupérer la clé d'un dico a partir d'une valeur
     for k, v in dict.items():
         if v == val:
             return k
 
-def click_chiffre( li, grille, grilleV, x, y, pos):
+
+def click_chiffre(li, grille, grilleV, x, y, pos):
     key = 0
     for r, val in enumerate(li.values()):
         if (val != "blanc" and val != "tutu") and val.collidepoint(pos):
             if grilleV[x][y] != 0:
-                if(x % 2 == 1 or y % 2 == 1):
+                if (x % 2 == 1 or y % 2 == 1):
                     screen.blit(get_cle(li, "tutu"), dest(grille, x, y))
                 else:
                     screen.blit(get_cle(li, "blanc"), grille[x][y])
@@ -130,13 +134,11 @@ def click_chiffre( li, grille, grilleV, x, y, pos):
                 grilleV[a][b] = '>'
 
 
-
-
 def renvoie_coord(grille, pos):
     for i in range(dim_V):
         for j in range(dim_V):
             if grille[i][j] != 0 and grille[i][j].collidepoint(pos):
-                return (i,j)
+                return (i, j)
     return (-1, -1)
 
 
@@ -146,33 +148,40 @@ def pr(grille):
             print(grille[j][i], end="")
         print(" ")
 
-list_val={1 : p1, 2 : p2, 3 : p3, 4 : p4}
+
+list_val = {1: p1, 2: p2, 3: p3, 4: p4}
+
+
 def recons(grilleV, grilleRect, li):
     for i in range(dim_V):
         for j in range(dim_V):
             if j % 2 == 0 and i % 2 == 0:
                 screen.blit(li[grilleV[i][j]], dest(grilleRect, i, j))
 
+
 def reset(grilleV, grilleRect):
     for i in range(dim_V):
         for j in range(dim_V):
             grilleV[i][j] = 0
-            if i % 2 !=0 or j % 2 != 0:
+            if i % 2 != 0 or j % 2 != 0:
                 if grilleRect[i][j] != 0:
                     screen.blit(psp, destSP(grilleRect, i, j))
     affiche_grille(grilleRect)
 
-def destSP(grille, i,  j):
+
+def destSP(grille, i, j):
     return [(grille[i][j].x + 1), (grille[i][j].y + 1)]
 
+
 def verif_case(x, y, grille):
-    for i in range(0, dim_V,2):
-        if(i!=x and grille[i][y]==grille[x][y]):
+    for i in range(0, dim_V, 2):
+        if (i != x and grille[i][y] == grille[x][y]):
             return True
-    for j in range(0, dim_V,2):
-        if(j!=y and grille[x][j]==grille[x][y]):
+    for j in range(0, dim_V, 2):
+        if (j != y and grille[x][j] == grille[x][y]):
             return True
     return False
+
 
 def verif_grille(grille):
     for i in range(0, dim_V, 2):
@@ -180,12 +189,14 @@ def verif_grille(grille):
             if grille[i][j] != 0 and verif_case(i, j, grille):
                 return False
     return True
-font = pygame.font.SysFont("Times New Roman, Arial", 50)
 
-bouton = font.render("Résoudre", True, color)
-bouton_C = bouton.get_rect(topleft = (40, 550))
-bouton2 = font.render("Reset", True, color)
-bouton_R = bouton2.get_rect(topleft = (40, 600))
+
+font = pygame.font.Font("go3v2.ttf", 50)
+
+bouton = font.render("Résoudre", True, black)
+bouton_C = bouton.get_rect(topleft=(40, 550))
+bouton2 = font.render("Reset", True, black)
+bouton_R = bouton2.get_rect(topleft=(40, 600))
 screen.blit(bouton, (40, 550))
 screen.blit(bouton2, (40, 600))
 
@@ -193,12 +204,11 @@ affiche_grille(grille_rectangles)
 li = affichageN()
 pygame.display.update()
 
-
-screen.blit(psp, destSP(grille_rectangles, 1, 0))
-#screen.blit(p1,dest(grille_rectangles, 4, 0))
+#screen.blit(psp, destSP(grille_rectangles, 1, 0))
+# screen.blit(p1,dest(grille_rectangles, 4, 0))
 pygame.display.update()
 clicked = False
-TabCell=[[0]*dim_V for i in range(dim_V)]
+TabCell = [[0] * dim_V for i in range(dim_V)]
 for i in range(dim_V):
     for j in range(dim_V):
         print(grille_rectangles[i][j])
@@ -210,14 +220,14 @@ while running:
         if event.type == pygame.QUIT:
             pygame.quit()
             running = False
-            #sys.exit()
+            # sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if bouton_R.collidepoint(pygame.mouse.get_pos()):
                 reset(grille_valeurs, grille_rectangles)
                 pr(grille_valeurs)
                 print("<---------------------------->")
 
-            if bouton_C.collidepoint( pygame.mouse.get_pos()):
+            if bouton_C.collidepoint(pygame.mouse.get_pos()):
                 if verif_grille(grille_valeurs):
                     if Solveur(grille_valeurs, dim_V, dim):
                         AfficheG(grille_valeurs, dim_V)
