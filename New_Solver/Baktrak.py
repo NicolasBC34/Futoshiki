@@ -68,7 +68,6 @@ def Peut_etre_attr(grille,x,y,val):
             return 0
     return 1        
 
-
 def Solveur(grille,D,Dval):
     i=j=0
     if (not Chercher_case_vide(grille,i,j,D)[2]):
@@ -76,10 +75,7 @@ def Solveur(grille,D,Dval):
     i=Chercher_case_vide(grille,i,j,D)[0]
     j=Chercher_case_vide(grille,i,j,D)[1]
 
-    if(not isinstance(TabCell[i][j],Cell)):                #si la cellule n'a pas déja été initialisée avant on l'initialise
-        TabCell[i][j]=Cell(Dval,i,j)           #tableau de cellules pour acceder aux possibilitées propres a chaque case de la grille
-    else:
-        TabCell[i][j]=Cell(Dval,i,j)
+    TabCell[i][j]=Cell(Dval,i,j)
     TabCell[i][j].update1(grille)
     #print("{",i,",",j,"}")
     TabCell[i][j].updateContr(grille, Dval)
@@ -160,48 +156,65 @@ class Cell:
         if(self.ord-1 >= 0):
             liContr[0]=(grille[self.abs][self.ord-1])
         return liContr
-    
+
     def updateContr(self , grille, Dv):
         li=self.Getcontr(grille)
-        #print(li)
         if(li[0]!=0):
             if(grille[self.abs][self.ord-2]!=0):
                 expr=str(grille[self.abs][self.ord-2])+li[0]
                 for i,e in enumerate(self.choix):
                     expr+=str(i+1)
-                    #print("expr: ",expr)    #on fabrique l'expression pour l'évaluer plus tard
                     b=bool(eval(expr))
                     if(not b):
                         self.choix[i]=0
-                    expr=expr[:-1]          #pour enlever la valeur a laquelle on compare et permettre de comparer avec les autres valeurs
+                    expr=expr[:-1]       
         if(li[1]!=0):
             if(grille[self.abs-2][self.ord]!=0):
                 expr=str(grille[self.abs-2][self.ord])+li[1]
                 for i,e in enumerate(self.choix):
                     expr+=str(i+1)
-                    #print("expr: ",expr)
                     b=bool(eval(expr))
                     if(not b):
-                        #print("flute")
                         self.choix[i]=0
                     expr=expr[:-1]                     
         if(li[2]!=0):
-            expr=str(grille[self.abs][self.ord])+li[2]
-            TabCell[self.abs][self.ord+2]=Cell(Dv , self.abs, self.ord+1) #propagation de l'update des ">,<" en créant une nouvelle cellule plus loin
-            for i,e in enumerate(TabCell[self.abs][self.ord+2].choix):
-                expr+=str(i+1)
-                if(not eval(expr)):
-                    TabCell[self.abs][self.ord+2].choix[i]=0    
-                expr=expr[:-1]
+            if(grille[self.abs][self.ord]!=0 and grille[self.abs][self.ord+2]==0):
+                expr=str(grille[self.abs][self.ord])+li[2]
+                TabCell[self.abs][self.ord+2]=Cell(Dv , self.abs, self.ord+2) 
+                for i,e in enumerate(TabCell[self.abs][self.ord+2].choix):
+                    expr+=str(i+1)
+                    if(not eval(expr)):
+                        TabCell[self.abs][self.ord+2].choix[i]=0    
+                    expr=expr[:-1]
+            elif (grille[self.abs][self.ord]==0 and grille[self.abs][self.ord+2]!=0):
+                if(li[2]=='>'):
+                    expr=str(grille[self.abs][self.ord+2])+'<'
+                else:
+                    expr=str(grille[self.abs][self.ord+2])+'>'
+                for i,e in enumerate(TabCell[self.abs][self.ord].choix):
+                    expr+=str(i+1)
+                    if(not eval(expr)):
+                        TabCell[self.abs][self.ord].choix[i]=0    
+                    expr=expr[:-1]
         if(li[3]!=0):
-            expr=str(grille[self.abs][self.ord])+li[3]
-            TabCell[self.abs+2][self.ord]=Cell(Dv , self.abs+2, self.ord) #propagation de l'update des ">,<" en créant une nouvelle cellule plus loin
-            for i,e in enumerate(TabCell[self.abs+2][self.ord].choix):
-                expr+=str(i+1)
-                if(not eval(expr)):
-                    TabCell[self.abs+2][self.ord].choix[i]=0
-                expr=expr[:-1]
-                        
+            if(grille[self.abs][self.ord]!=0 and grille[self.abs+2][self.ord]==0):
+                expr=str(grille[self.abs][self.ord])+li[3]
+                TabCell[self.abs+2][self.ord]=Cell(Dv , self.abs+2, self.ord) 
+                for i,e in enumerate(TabCell[self.abs+2][self.ord].choix):
+                    expr+=str(i+1)
+                    if(not eval(expr)):
+                        TabCell[self.abs+2][self.ord].choix[i]=0
+                    expr=expr[:-1]
+            elif(grille[self.abs][self.ord]==0 and grille[self.abs+2][self.ord]!=0):
+                if(li[3]=='>'):
+                    expr=str(grille[self.abs+2][self.ord])+'<'
+                else:
+                    expr=str(grille[self.abs+2][self.ord])+'>'
+                for i,e in enumerate(TabCell[self.abs][self.ord].choix):
+                    expr+=str(i+1)
+                    if(not eval(expr)):
+                        TabCell[self.abs][self.ord].choix[i]=0    
+                    expr=expr[:-1]
 
 ###########################################################""   
 
