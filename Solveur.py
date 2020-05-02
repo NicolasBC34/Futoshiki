@@ -144,34 +144,31 @@ def def_Solveur(difficulte):
                         pygame.draw.rect(screen, color, pygame.Rect(b * (cot + mar) + marge_gauche, a * (cot + mar) +
                                                                     marge_haut, cot, cot))  # Remet les cases en blanc
                         if (grille[a][b] != 0):  # Réécris le chiffre par dessus
-                            if (grille[a][b] / 10 == 1):
+                            if (grille[a][b] - (grille[a][b] % 10) == 10):
                                 screen.blit(P1,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 2):
+                            if (grille[a][b] - (grille[a][b] % 10) == 20):
                                 screen.blit(P2,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 3):
+                            if (grille[a][b] - (grille[a][b] % 10) == 30):
                                 screen.blit(P3,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 4):
+                            if (grille[a][b] - (grille[a][b] % 10) == 40):
                                 screen.blit(P4,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 5):
+                            if (grille[a][b] - (grille[a][b] % 10) == 50):
                                 screen.blit(P5,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 6):
+                            if (grille[a][b] - (grille[a][b] % 10) == 60):
                                 screen.blit(P6,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 6):
-                                screen.blit(P6,
-                                            (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 7):
+                            if (grille[a][b] - (grille[a][b] % 10) == 70):
                                 screen.blit(P7,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 8):
+                            if (grille[a][b] - (grille[a][b] % 10) == 80):
                                 screen.blit(P8,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
-                            if (grille[a][b] / 10 == 9):
+                            if (grille[a][b] - (grille[a][b] % 10) == 90):
                                 screen.blit(P9,
                                             (b * (cot + mar) + marge_gauche, a * (cot + mar) + marge_haut, cot, cot))
 
@@ -179,25 +176,23 @@ def def_Solveur(difficulte):
             pygame.draw.rect(screen, colorclick,
                              pygame.Rect(y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
             if (grille[x][y] != 0):  # Réécris le chiffre par dessus la case selectionnée
-                if (grille[x][y] / 10 == 1):
+                if (grille[x][y] - (grille[x][y] % 10) == 10):
                     screen.blit(P1, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 2):
+                if (grille[x][y] - (grille[x][y] % 10) == 20):
                     screen.blit(P2, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 3):
+                if (grille[x][y] - (grille[x][y] % 10) == 30):
                     screen.blit(P3, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 4):
+                if (grille[x][y] - (grille[x][y] % 10) == 40):
                     screen.blit(P4, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 5):
+                if (grille[x][y] - (grille[x][y] % 10) == 50):
                     screen.blit(P5, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 6):
+                if (grille[x][y] - (grille[x][y] % 10) == 60):
                     screen.blit(P6, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 6):
-                    screen.blit(P6, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 7):
+                if (grille[x][y] - (grille[x][y] % 10) == 70):
                     screen.blit(P7, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 8):
+                if (grille[x][y] - (grille[x][y] % 10) == 80):
                     screen.blit(P8, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
-                if (grille[x][y] / 10 == 9):
+                if (grille[x][y] - (grille[x][y] % 10) == 90):
                     screen.blit(P9, (y * (cot + mar) + marge_gauche, x * (cot + mar) + marge_haut, cot, cot))
 
     # Lecture des flèches,
@@ -378,7 +373,7 @@ def def_Solveur(difficulte):
 
     def changer_num(X, Y):  # commande pour ecrire un chiffre cliquée
         if clickable_area_G1.collidepoint(event.pos):
-            if (grille[X][Y] / 10 == 1):  # Si le chiffre clique est deja sur la case alors efface la case
+            if (grille[X][Y] - (grille[X][Y] % 10) == 10):  # Si le chiffre clique est deja sur la case alors efface la case
                 pygame.draw.rect(screen, colorclick,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10  # remet la case à 0 dans la matrice
@@ -390,7 +385,7 @@ def def_Solveur(difficulte):
                 grille[X][Y] = grille[X][Y] % 10 + 10
 
         elif clickable_area_G2.collidepoint(event.pos):
-            if (grille[X][Y] / 10 == 2):  # Si le chiffre clique est deja sur la case alors efface la case
+            if (grille[X][Y] - (grille[X][Y] % 10) == 20):  # Si le chiffre clique est deja sur la case alors efface la case
                 pygame.draw.rect(screen, colorclick,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10  # remet la case à 0 dans la matrice
@@ -400,7 +395,7 @@ def def_Solveur(difficulte):
                 screen.blit(P2, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10 + 20
         elif clickable_area_G3.collidepoint(event.pos):
-            if (grille[X][Y] / 10 == 3):  # Si le chiffre clique est deja sur la case alors efface la case
+            if (grille[X][Y] - (grille[X][Y] % 10) == 30):  # Si le chiffre clique est deja sur la case alors efface la case
                 pygame.draw.rect(screen, colorclick,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10  # remet la case à 0 dans la matrice
@@ -410,7 +405,7 @@ def def_Solveur(difficulte):
                 screen.blit(P3, (Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10 + 30
         elif clickable_area_G4.collidepoint(event.pos):
-            if (grille[X][Y] / 10 == 4):  # Si le chiffre clique est deja sur la case alors efface la case
+            if (grille[X][Y] - (grille[X][Y] % 10) == 40):  # Si le chiffre clique est deja sur la case alors efface la case
                 pygame.draw.rect(screen, colorclick,
                                  pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot, cot))
                 grille[X][Y] = grille[X][Y] % 10  # remet la case à 0 dans la matrice
@@ -421,7 +416,7 @@ def def_Solveur(difficulte):
                 grille[X][Y] = grille[X][Y] % 10 + 40
         if (difficulte >= 5):
             if clickable_area_G5.collidepoint(event.pos):
-                if (grille[X][Y] / 10 == 5):  # Si le chiffre clique est deja sur la case alors efface la case
+                if (grille[X][Y] - (grille[X][Y] % 10) == 50):  # Si le chiffre clique est deja sur la case alors efface la case
                     pygame.draw.rect(screen, colorclick,
                                      pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
                                                  cot))
@@ -434,7 +429,7 @@ def def_Solveur(difficulte):
                     grille[X][Y] = grille[X][Y] % 10 + 50
         if (difficulte >= 6):
             if clickable_area_G6.collidepoint(event.pos):
-                if (grille[X][Y] / 10 == 6):  # Si le chiffre clique est deja sur la case alors efface la case
+                if (grille[X][Y] - (grille[X][Y] % 10) == 60):  # Si le chiffre clique est deja sur la case alors efface la case
                     pygame.draw.rect(screen, colorclick,
                                      pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
                                                  cot))
@@ -447,7 +442,7 @@ def def_Solveur(difficulte):
                     grille[X][Y] = grille[X][Y] % 10 + 60
         if (difficulte >= 7):
             if clickable_area_G7.collidepoint(event.pos):
-                if (grille[X][Y] / 10 == 7):  # Si le chiffre clique est deja sur la case alors efface la case
+                if (grille[X][Y] - (grille[X][Y] % 10) == 70):  # Si le chiffre clique est deja sur la case alors efface la case
                     pygame.draw.rect(screen, colorclick,
                                      pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
                                                  cot))
@@ -460,7 +455,7 @@ def def_Solveur(difficulte):
                     grille[X][Y] = grille[X][Y] % 10 + 70
         if (difficulte >= 8):
             if clickable_area_G8.collidepoint(event.pos):
-                if (grille[X][Y] / 10 == 8):  # Si le chiffre clique est deja sur la case alors efface la case
+                if (grille[X][Y] - (grille[X][Y] % 10) == 80):  # Si le chiffre clique est deja sur la case alors efface la case
                     pygame.draw.rect(screen, colorclick,
                                      pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
                                                  cot))
@@ -473,7 +468,7 @@ def def_Solveur(difficulte):
                     grille[X][Y] = grille[X][Y] % 10 + 80
         if (difficulte >= 9):
             if clickable_area_G9.collidepoint(event.pos):
-                if (grille[X][Y] / 10 == 9):  # Si le chiffre clique est deja sur la case alors efface la case
+                if (grille[X][Y] - (grille[X][Y] % 10) == 90):  # Si le chiffre clique est deja sur la case alors efface la case
                     pygame.draw.rect(screen, colorclick,
                                      pygame.Rect(Y * (cot + mar) + marge_gauche, X * (cot + mar) + marge_haut, cot,
                                                  cot))
