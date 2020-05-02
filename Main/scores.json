@@ -1,0 +1,82 @@
+{
+    "4x4": {
+        "level1": [
+            24,
+            31,
+            37
+        ],
+        "level2": [],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [],
+        "level7": [],
+        "level8": [],
+        "level9": []
+    },
+    "5x5": {
+        "level1": [],
+        "level2": [],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [],
+        "level7": [],
+        "level8": [],
+        "level9": []
+    },
+    "6x6": {
+        "level1": [],
+        "level2": [],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [],
+        "level7": [],
+        "level8": [],
+        "level9": []
+    },
+    "7x7": {
+        "level1": [],
+        "level2": [],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [],
+        "level7": [],
+        "level8": [],
+        "level9": []
+    },
+    "8x8": {
+        "level1": [],
+        "level2": [],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [
+            0
+        ],
+        "level7": [
+            0
+        ],
+        "level8": [],
+        "level9": [
+            0
+        ]
+    },
+    "9x9": {
+        "level1": [],
+        "level2": [
+            0
+        ],
+        "level3": [],
+        "level4": [],
+        "level5": [],
+        "level6": [],
+        "level7": [],
+        "level8": [],
+        "level9": [
+            0
+        ]
+    }
+}
