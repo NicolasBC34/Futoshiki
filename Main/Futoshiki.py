@@ -125,8 +125,10 @@ def def_Futoshiki(difficulte, level, la_grille_base, la_grille_finie):
 
 
     def gagner():
-        image_gagner = pygame.image.load("Ressources/assets/gagner.png").convert_alpha()
-        screen.blit(image_gagner, (190, 150))
+        pygame.draw.rect(screen, colorbase,pygame.Rect( 190, 160,700, 400))
+        screen.blit(subMenuFont.render("Bravo, tu as terminé", True, (0, 0, 0)), (240, 195))
+        screen.blit(subMenuFont.render("le niveau en :", True, (0, 0, 0)), (350, 295))
+        screen.blit(timerfont.render(text, True, colorerreur), (460, 395))
         gagner = True
         return gagner
 
