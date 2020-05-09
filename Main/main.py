@@ -248,9 +248,9 @@ def menuSolveur(screen):
     screen.blit(titleFont.render("Solveur", True, (0, 0, 0)), (370, 30))
     screen.blit(subMenuFont.render("Retour", True, (0, 0, 0)), (10, 650))
 
-    menuReglesActive = True
+    menuSolveurActive = True
 
-    while menuReglesActive:  # Tant que la fentetre est en cours
+    while menuSolveurActive:  # Tant que la fentetre est en cours
         for event in pygame.event.get():  # Pour chaque evenement
             if event.type == pygame.QUIT:
                 pygame.quit()
